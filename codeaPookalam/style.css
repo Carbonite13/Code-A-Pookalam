@@ -1,0 +1,823 @@
+/* =========================================================
+   Onam · Pookalam — Shared Stylesheet
+   Design tokens, layout, motion, and components
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Rozha+One&family=Mukta:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@500;600&display=swap');
+
+:root{
+  /* ---- Palette ---- */
+  --ivory:        #FBF3E1;
+  --ivory-deep:    #F6EBD2;
+  --cream:        #F1E2BC;
+  --gold:          #C89A3F;
+  --gold-bright:   #E3B94A;
+  --gold-rich:     #A97A1F;
+  --kerala-green:  #2E5A3A;
+  --kerala-green-deep: #1E3F27;
+  --maroon:        #7A1E2C;
+  --maroon-deep:   #5B1420;
+  --orange:        #D3743A;
+  --brown:         #4A301F;
+  --ink:           #2B1D12;
+  --ink-soft:      #5B4A38;
+
+  /* ---- Type ---- */
+  --font-display: 'Rozha One', 'Noto Serif Malayalam', serif;
+  --font-body: 'Mukta', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mal: 'Noto Sans Malayalam', 'Mukta', sans-serif;
+
+  /* ---- Layout ---- */
+  --max-w: 1180px;
+  --edge: clamp(20px, 5vw, 64px);
+  --radius-lg: 28px;
+  --radius-md: 16px;
+
+  color-scheme: light;
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+
+html{
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body{
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 600px at 15% -10%, rgba(227,185,74,0.16), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(122,30,44,0.08), transparent 55%),
+    var(--ivory);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width: 100%; display: block; }
+
+a{ color: inherit; }
+
+.visually-hidden{
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link{
+  position: absolute;
+  left: 10px;
+  top: -60px;
+  background: var(--maroon);
+  color: var(--ivory);
+  padding: 10px 18px;
+  border-radius: 8px;
+  z-index: 999;
+  transition: top .2s ease;
+  font-weight: 600;
+}
+.skip-link:focus{ top: 10px; }
+
+:focus-visible{
+  outline: 2.5px solid var(--maroon);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------
+   Decorative kolam texture — used as thin border bands
+--------------------------------------------------- */
+.kolam-band{
+  height: 14px;
+  width: 100%;
+  background-image: radial-gradient(circle, var(--gold) 1.6px, transparent 1.7px);
+  background-size: 22px 14px;
+  background-position: center;
+  opacity: .55;
+}
+.kolam-band.deep{
+  background-image: radial-gradient(circle, var(--maroon) 1.6px, transparent 1.7px);
+  opacity: .35;
+}
+
+/* ---------------------------------------------------
+   Top navigation
+--------------------------------------------------- */
+.site-nav{
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: clamp(18px, 3vw, 30px) var(--edge) 0;
+}
+
+.brand{
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  color: var(--maroon-deep);
+  letter-spacing: .02em;
+}
+.brand .brand-mark{
+  font-family: var(--font-mal);
+  font-weight: 600;
+  font-size: .55em;
+  color: var(--gold-rich);
+  background: var(--maroon-deep);
+  padding: 5px 9px;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.nav-links{
+  display: flex;
+  gap: clamp(16px, 3vw, 32px);
+  list-style: none;
+  margin: 0; padding: 0;
+  font-weight: 600;
+  font-size: .95rem;
+}
+.nav-links a{
+  text-decoration: none;
+  color: var(--ink-soft);
+  position: relative;
+  padding-bottom: 3px;
+}
+.nav-links a::after{
+  content: '';
+  position: absolute; left: 0; right: 100%;
+  bottom: 0; height: 2px;
+  background: var(--gold-rich);
+  transition: right .25s ease;
+}
+.nav-links a:hover::after, .nav-links a:focus-visible::after{ right: 0; }
+
+/* =====================================================
+   HOME — HERO
+===================================================== */
+.hero{
+  position: relative;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 56px) var(--edge) 0;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: clamp(16px, 4vw, 40px);
+  min-height: min(78vh, 680px);
+}
+
+.hero-copy{ position: relative; z-index: 4; }
+
+.eyebrow{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mal);
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--maroon);
+  background: rgba(122,30,44,0.08);
+  border: 1px solid rgba(122,30,44,0.18);
+  padding: 7px 14px 7px 10px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+.eyebrow .dot{
+  width: 7px; height: 7px;
+  background: var(--gold-rich);
+  border-radius: 50%;
+  flex: none;
+}
+
+.hero h1{
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.6vw, 4.1rem);
+  line-height: 1.08;
+  margin: 0 0 20px;
+  color: var(--maroon-deep);
+}
+.hero h1 em{
+  font-style: normal;
+  color: var(--gold-rich);
+  position: relative;
+}
+
+.hero p.lede{
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 0 34px;
+}
+
+.cta-row{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-primary{
+  --btn-shadow: 0 10px 26px -8px rgba(122,30,44,0.55);
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: .01em;
+  color: var(--ivory);
+  background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-deep) 100%);
+  padding: 16px 30px;
+  border-radius: 999px;
+  box-shadow: var(--btn-shadow);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.btn-primary:hover, .btn-primary:focus-visible{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -8px rgba(122,30,44,0.6);
+}
+.btn-primary:active{ transform: translateY(0); }
+.btn-primary svg{
+  width: 18px; height: 18px;
+  transition: transform .3s ease;
+}
+.btn-primary:hover svg{ transform: translateX(4px); }
+
+.hero-hint{
+  font-size: .88rem;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* Hero decorative petals scattered */
+.hero-petals{
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-petals span{
+  position: absolute;
+  border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+  opacity: .5;
+  filter: blur(.2px);
+}
+
+/* ---------------- Maveli hero stage ---------------- */
+.maveli-stage{
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+.maveli-plinth{
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(86%, 520px);
+  height: 26px;
+  background: radial-gradient(ellipse at center, rgba(74,48,31,0.28) 0%, transparent 72%);
+  filter: blur(1px);
+}
+
+.maveli-group{
+  position: relative;
+  width: min(92%, 560px);
+  will-change: transform;
+}
+
+.maveli-group img{
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 22px 30px rgba(74,48,31,0.28));
+}
+
+/* idle animation: gentle bob + slight rotation, umbrella-hand sway handled via wrapper */
+.maveli-idle{
+  animation: maveliBob 4.2s ease-in-out infinite;
+  transform-origin: 60% 95%;
+}
+@keyframes maveliBob{
+  0%, 100%{ transform: translateY(0) rotate(0deg); }
+  30%{ transform: translateY(-6px) rotate(-0.6deg); }
+  60%{ transform: translateY(-1px) rotate(0.4deg); }
+}
+
+.maveli-glow{
+  position: absolute;
+  left: 50%; top: 46%;
+  width: 78%; aspect-ratio: 1;
+  transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(227,185,74,0.35) 0%, rgba(227,185,74,0) 70%);
+  z-index: -1;
+  pointer-events: none;
+  animation: glowPulse 5s ease-in-out infinite;
+}
+@keyframes glowPulse{
+  0%,100%{ opacity: .65; transform: translate(-50%,-50%) scale(1); }
+  50%{ opacity: 1; transform: translate(-50%,-50%) scale(1.06); }
+}
+
+/* ride-off transition state, toggled via JS */
+body.maveli-departing .maveli-group{
+  animation: maveliRideOff 1.05s cubic-bezier(.55,.06,.68,.19) forwards;
+}
+body.maveli-departing .maveli-idle{ animation: none; }
+body.maveli-departing .maveli-glow{ animation: none; opacity: 0; transition: opacity .4s ease; }
+
+@keyframes maveliRideOff{
+  0%{ transform: translateX(0) translateY(0) rotate(0deg) scale(1); }
+  12%{ transform: translateX(-1.5%) translateY(2px) rotate(-1deg) scale(1.01); }
+  100%{ transform: translateX(160%) translateY(-10px) rotate(2deg) scale(0.94); opacity: 0.15;}
+}
+
+body.maveli-departing .hero-copy,
+body.maveli-departing .site-nav{
+  transition: opacity .5s ease;
+  opacity: 0.35;
+}
+
+body.maveli-departing .maveli-plinth{
+  animation: plinthFade 1s ease forwards;
+}
+@keyframes plinthFade{
+  to{ opacity: 0; transform: translateX(-50%) scaleX(1.4); }
+}
+
+.dust-trail{
+  position: absolute;
+  bottom: 10%;
+  left: 8%;
+  width: 40%;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0;
+}
+body.maveli-departing .dust-trail{
+  animation: dustPuff 1s ease forwards;
+}
+@keyframes dustPuff{
+  0%{ opacity: 0; }
+  15%{ opacity: .55; }
+  100%{ opacity: 0; transform: translateX(120%); }
+}
+
+/* =====================================================
+   Section framing (shared)
+===================================================== */
+.section{
+  position: relative;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: clamp(50px, 8vw, 96px) var(--edge);
+}
+
+.section-head{
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto clamp(28px, 5vw, 48px);
+}
+.section-head .eyebrow{ margin-bottom: 16px; }
+.section-head h2{
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  color: var(--maroon-deep);
+  margin: 0 0 14px;
+}
+.section-head p{
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 1.03rem;
+}
+
+/* =====================================================
+   POOKALAM INTRO
+===================================================== */
+.pk-intro{
+  text-align: center;
+  padding-top: clamp(70px, 12vw, 120px);
+  padding-bottom: clamp(20px, 4vw, 40px);
+}
+.pk-intro h1{
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--maroon-deep);
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  margin: 0 0 16px;
+}
+.pk-intro p{
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  margin: 0 0 30px;
+}
+.scroll-cue{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold-rich);
+  font-weight: 600;
+  font-size: .85rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.scroll-cue svg{
+  width: 20px; height: 26px;
+  animation: cueBounce 1.8s ease-in-out infinite;
+}
+@keyframes cueBounce{
+  0%,100%{ transform: translateY(0); opacity: .55; }
+  50%{ transform: translateY(8px); opacity: 1; }
+}
+
+/* =====================================================
+   POOKALAM SCROLL EXPERIENCE
+===================================================== */
+.pk-experience{
+  position: relative;
+  /* tall scroll runway; JS reads scroll progress across this */
+  height: 340vh;
+}
+
+.pk-sticky{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 var(--edge);
+}
+
+/* Maveli only accompanies the pinned pookalam moment — scoped to the
+   sticky viewport so he never lingers over the finale or footer below. */
+
+.pk-stage{
+  position: relative;
+  width: min(78vw, 560px);
+  aspect-ratio: 1;
+  margin-bottom: clamp(18px, 3vw, 28px);
+}
+
+.pk-ring-decor{
+  position: absolute;
+  inset: -6%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(227,185,74,0.18), rgba(122,30,44,0.12), rgba(46,90,58,0.14), rgba(227,185,74,0.18));
+  filter: blur(18px);
+  opacity: var(--pk-progress, 0);
+  transition: opacity .4s ease;
+  z-index: 0;
+}
+
+.pk-layer{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.pk-outline{
+  z-index: 1;
+  opacity: 0.9;
+  filter: drop-shadow(0 14px 26px rgba(74,48,31,0.18));
+}
+
+.pk-complete{
+  z-index: 2;
+  /* mask grown via JS with a radial gradient — feathered, no hard circle */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 0%, transparent 0%);
+          mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 0%, transparent 0%);
+  filter: drop-shadow(0 18px 34px rgba(74,48,31,0.28));
+}
+
+.pk-glow{
+  position: absolute;
+  inset: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(227,185,74,0.55) 0%, rgba(227,185,74,0) 68%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity .6s ease;
+}
+.pk-glow.is-visible{ opacity: 1; }
+
+.pk-sparkle{
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.pk-progress-track{
+  width: min(78vw, 340px);
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(74,48,31,0.14);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.pk-progress-fill{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-rich), var(--maroon));
+  border-radius: 4px;
+}
+
+/* Flower info card */
+.pk-info{
+  position: relative;
+  z-index: 5;
+  width: min(92vw, 460px);
+  min-height: 92px;
+  background: rgba(251, 243, 225, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(201,150,43,0.35);
+  border-radius: var(--radius-md);
+  padding: 16px 22px;
+  box-shadow: 0 12px 30px -14px rgba(74,48,31,0.35);
+  text-align: center;
+}
+.pk-info-name{
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.pk-info-name .en{
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--maroon-deep);
+}
+.pk-info-name .ml{
+  font-family: var(--font-mal);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--gold-rich);
+}
+.pk-info-desc{
+  margin: 0;
+  font-size: .92rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.pk-info.is-updating .pk-info-desc,
+.pk-info.is-updating .pk-info-name{
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* Maveli traveling companion on pookalam page */
+.pk-maveli-track{
+  position: absolute;
+  left: 0;
+  bottom: clamp(14px, 4vh, 40px);
+  width: 100%;
+  height: clamp(70px, 14vw, 150px);
+  pointer-events: none;
+  z-index: 6;
+}
+.pk-maveli{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: clamp(90px, 16vw, 190px);
+  will-change: transform;
+  filter: drop-shadow(0 10px 16px rgba(74,48,31,0.3));
+  transform: translateX(0);
+}
+.pk-maveli img{
+  width: 100%;
+  height: auto;
+  animation: pkMaveliBob 2.6s ease-in-out infinite;
+}
+@keyframes pkMaveliBob{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-4px); }
+}
+
+/* =====================================================
+   FINAL REVEAL
+===================================================== */
+.finale{
+  position: relative;
+  text-align: center;
+  padding: clamp(70px, 12vw, 130px) var(--edge) clamp(90px, 14vw, 150px);
+  overflow: hidden;
+}
+.finale-glow{
+  position: absolute;
+  left: 50%; top: 20%;
+  width: 60vw; max-width: 640px; aspect-ratio: 1;
+  transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(227,185,74,0.28) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.finale.is-visible .finale-glow{ opacity: 1; }
+
+.finale-eyebrow{
+  font-family: var(--font-mal);
+  color: var(--gold-rich);
+  letter-spacing: .1em;
+  font-weight: 600;
+  font-size: .85rem;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.finale h2{
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: var(--maroon-deep);
+  margin: 14px 0 16px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .9s ease .1s, transform .9s ease .1s;
+}
+.finale p{
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  max-width: 46ch;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .9s ease .22s, transform .9s ease .22s;
+}
+.finale.is-visible .finale-eyebrow,
+.finale.is-visible h2,
+.finale.is-visible p{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   LIKE / DISLIKE
+===================================================== */
+.feedback{
+  text-align: center;
+  padding: 0 var(--edge) clamp(70px, 10vw, 110px);
+}
+.feedback-card{
+  max-width: 420px;
+  margin: 0 auto;
+  background: var(--cream);
+  border: 1px solid rgba(201,150,43,0.35);
+  border-radius: var(--radius-lg);
+  padding: clamp(26px, 5vw, 38px);
+}
+.feedback-card h3{
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--maroon-deep);
+  margin: 0 0 8px;
+}
+.feedback-card > p{
+  margin: 0 0 22px;
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.feedback-buttons{
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.fb-btn{
+  appearance: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .92rem;
+  color: var(--ink);
+  background: var(--ivory);
+  border: 2px solid rgba(74,48,31,0.18);
+  border-radius: 16px;
+  padding: 14px 26px;
+  min-width: 108px;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.fb-btn .icon{ font-size: 1.6rem; transition: transform .3s ease; }
+.fb-btn:hover{ transform: translateY(-3px); border-color: var(--gold); }
+.fb-btn[aria-pressed="true"]{
+  background: var(--maroon);
+  border-color: var(--maroon);
+  color: var(--ivory);
+}
+.fb-btn.like[aria-pressed="true"] .icon{ transform: scale(1.25); }
+.fb-btn.dislike[aria-pressed="true"] .icon{ transform: scale(1.15) rotate(-8deg); }
+.fb-btn[data-locked="true"]:not([aria-pressed="true"]){
+  opacity: .45;
+}
+.feedback-note{
+  margin-top: 16px;
+  font-size: .85rem;
+  color: var(--ink-soft);
+  min-height: 1.2em;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+.site-footer{
+  text-align: center;
+  padding: 28px var(--edge) 40px;
+  font-size: .85rem;
+  color: var(--ink-soft);
+}
+.site-footer .foot-mal{
+  font-family: var(--font-mal);
+  color: var(--gold-rich);
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 900px){
+  .hero{
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: clamp(20px, 5vw, 40px);
+    text-align: center;
+  }
+  .hero-copy{ order: 1; }
+  .hero p.lede{ margin-left: auto; margin-right: auto; }
+  .cta-row{ justify-content: center; }
+  .maveli-stage{ order: 2; min-height: 300px; margin-top: 8px; }
+  .maveli-group{ width: min(78%, 380px); }
+
+  body.maveli-departing .maveli-group{
+    animation-name: maveliRideOffMobile;
+  }
+}
+
+@keyframes maveliRideOffMobile{
+  0%{ transform: translateX(0) rotate(0deg) scale(1); }
+  100%{ transform: translateX(120vw) translateY(-6px) rotate(2deg) scale(0.9); opacity: .15; }
+}
+
+@media (max-width: 640px){
+  .nav-links{ display: none; }
+  .pk-info{ padding: 14px 16px; }
+  .pk-maveli{ width: clamp(72px, 22vw, 120px); }
+  .feedback-buttons{ gap: 12px; }
+  .fb-btn{ min-width: 92px; padding: 12px 16px; }
+}
+
+@media (max-width: 420px){
+  .maveli-group{ width: 82%; }
+}
