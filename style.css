@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at center,
+        #4a3020 0%,
+        #251610 55%,
+        #140b08 100%);
+
+    color: #fff5df;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    padding: 25px 15px 12px;
+}
+
+header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+
+    color: #ffd34e;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+header p {
+    margin-top: 6px;
+
+    font-size: 1rem;
+
+    color: #f4d8a3;
+}
+
+main {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 10px 15px 25px;
+}
+
+.pookalam {
+    width: min(92vw, 850px);
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 30px rgba(255, 196, 67, 0.2),
+        0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+}
+
+.message {
+    text-align: center;
+
+    margin-top: 18px;
+
+    max-width: 600px;
+}
+
+.message h2 {
+    color: #ffd34e;
+
+    font-size: 1.5rem;
+
+    margin-bottom: 7px;
+}
+
+.message p {
+    color: #e8cfaa;
+
+    line-height: 1.6;
+}
+
+footer {
+    margin-top: auto;
+
+    padding: 15px;
+
+    color: #bca78b;
+
+    font-size: 0.85rem;
+
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+
+    header {
+        padding-top: 18px;
+    }
+
+    header h1 {
+        font-size: 1.45rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    .message h2 {
+        font-size: 1.25rem;
+    }
+
+}
