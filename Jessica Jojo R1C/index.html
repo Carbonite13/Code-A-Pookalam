@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ml">
+
+<head>
+<meta charset="UTF-8">
+
+<title>Digital Pookalam</title>
+
+<style>
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #f8f3e8;
+
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+svg {
+    width: 650px;
+    max-width: 92vw;
+}
+
+
+/* =========================
+   ROTATION
+========================= */
+
+.outer {
+    transform-origin: 325px 325px;
+    animation: rotate 60s linear infinite;
+}
+
+.middle {
+    transform-origin: 325px 325px;
+    animation: rotateReverse 45s linear infinite;
+}
+
+.inner {
+    transform-origin: 325px 325px;
+    animation: rotate 35s linear infinite;
+}
+
+
+@keyframes rotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+@keyframes rotateReverse {
+
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+
+}
+
+
+/* =========================
+   CENTRE
+========================= */
+
+.center {
+    transform-origin: 325px 325px;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
+    }
+
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.title {
+
+    margin-top: 5px;
+
+    font-family:
+        "Noto Sans Malayalam",
+        "Nirmala UI",
+        sans-serif;
+
+    font-size: 34px;
+
+    color: #60758c;
+
+}
+
+.subtitle {
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: #b09662;
+
+    margin-top: 4px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<svg
+    viewBox="0 0 650 650"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+
+<!-- =================================================
+     BACKGROUND
+================================================= -->
+
+<circle
+    cx="325"
+    cy="325"
+    r="315"
+    fill="#eee4cf"
+/>
+
+<circle
+    cx="325"
+    cy="325"
+    r="303"
+    fill="#fffaf0"
+    stroke="#d6b45a"
+    stroke-width="3"
+/>
+
+
+<!-- thin decorative circles -->
+
+<circle
+    cx="325"
+    cy="325"
+    r="292"
+    fill="none"
+    stroke="#e4c875"
+    stroke-width="2"
+/>
+
+<circle
+    cx="325"
+    cy="325"
+    r="282"
+    fill="none"
+    stroke="#d9b65c"
+    stroke-width="1"
+/>
+
+
+<!-- =================================================
+     OUTER GREEN LEAVES
+================================================= -->
+
+<g
+    id="leaves"
+    class="outer"
+>
+</g>
+
+
+<!-- =================================================
+     PURPLE / PINK FLOWERS
+================================================= -->
+
+<g
+    id="purpleFlowers"
+    class="middle"
+>
+</g>
+
+
+<!-- =================================================
+     WHITE FLOWER RING
+================================================= -->
+
+<g
+    id="whiteFlowers"
+    class="outer"
+>
+</g>
+
+
+<!-- =================================================
+     ORANGE FLOWER RING
+================================================= -->
+
+<g
+    id="orangeFlowers"
+    class="inner"
+>
+</g>
+
+
+<!-- =================================================
+     RED PETAL RING
+================================================= -->
+
+<g
+    id="redFlowers"
+    class="middle"
+>
+</g>
+
+
+<!-- =================================================
+     YELLOW INNER RING
+================================================= -->
+
+<g
+    id="yellowFlowers"
+    class="inner"
+>
+</g>
+
+
+<!-- =================================================
+     CENTRAL CIRCLE
+================================================= -->
+
+<circle
+    cx="325"
+    cy="325"
+    r="70"
+    fill="#fff4d5"
+/>
+
+<circle
+    cx="325"
+    cy="325"
+    r="66"
+    fill="none"
+    stroke="#d7b34c"
+    stroke-width="2"
+/>
+
+
+<!-- =================================================
+     CENTRE FLOWER
+================================================= -->
+
+<g class="center">
+
+
+    <!-- pink outer petals -->
+
+    <g fill="#e85d82">
+
+        <ellipse
+            cx="325"
+            cy="286"
+            rx="14"
+            ry="38"
+        />
+
+        <ellipse
+            cx="325"
+            cy="364"
+            rx="14"
+            ry="38"
+        />
+
+        <ellipse
+            cx="286"
+            cy="325"
+            rx="38"
+            ry="14"
+        />
+
+        <ellipse
+            cx="364"
+            cy="325"
+            rx="38"
+            ry="14"
+        />
+
+        <ellipse
+            cx="298"
+            cy="298"
+            rx="14"
+            ry="37"
+            transform="rotate(-45 298 298)"
+        />
+
+        <ellipse
+            cx="352"
+            cy="298"
+            rx="14"
+            ry="37"
+            transform="rotate(45 352 298)"
+        />
+
+        <ellipse
+            cx="298"
+            cy="352"
+            rx="14"
+            ry="37"
+            transform="rotate(45 298 352)"
+        />
+
+        <ellipse
+            cx="352"
+            cy="352"
+            rx="14"
+            ry="37"
+            transform="rotate(-45 352 352)"
+        />
+
+    </g>
+
+
+    <!-- yellow inner petals -->
+
+    <g fill="#f2b72d">
+
+        <ellipse
+            cx="325"
+            cy="302"
+            rx="9"
+            ry="24"
+        />
+
+        <ellipse
+            cx="325"
+            cy="348"
+            rx="9"
+            ry="24"
+        />
+
+        <ellipse
+            cx="302"
+            cy="325"
+            rx="24"
+            ry="9"
+        />
+
+        <ellipse
+            cx="348"
+            cy="325"
+            rx="24"
+            ry="9"
+        />
+
+    </g>
+
+
+    <!-- centre -->
+
+    <circle
+        cx="325"
+        cy="325"
+        r="14"
+        fill="#dc8a19"
+    />
+
+    <circle
+        cx="325"
+        cy="325"
+        r="6"
+        fill="#f9d45d"
+    />
+
+</g>
+
+
+</svg>
+
+
+<!-- =================================================
+     TEXT BELOW POOKALAM
+================================================= -->
+
+<div class="title">
+    പൂക്കളം
+</div>
+
+<div class="subtitle">
+    ONAM · KERALA
+</div>
+
+
+</div>
+
+
+<script>
+
+
+const NS =
+    "http://www.w3.org/2000/svg";
+
+
+/* =================================================
+   SVG ELEMENT
+================================================= */
+
+function create(type) {
+
+    return document.createElementNS(
+        NS,
+        type
+    );
+
+}
+
+
+/* =================================================
+   DIGITAL FLOWER
+================================================= */
+
+function flower(
+    x,
+    y,
+    size,
+    outerColor,
+    innerColor,
+    centerColor
+) {
+
+    const group = create("g");
+
+
+    group.setAttribute(
+        "transform",
+        `translate(${x} ${y})`
+    );
+
+
+    /* six large petals */
+
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        const petal = create("ellipse");
+
+
+        petal.setAttribute(
+            "cx",
+            0
+        );
+
+        petal.setAttribute(
+            "cy",
+            -size * 0.55
+        );
+
+        petal.setAttribute(
+            "rx",
+            size * 0.34
+        );
+
+        petal.setAttribute(
+            "ry",
+            size * 0.62
+        );
+
+        petal.setAttribute(
+            "fill",
+            outerColor
+        );
+
+        petal.setAttribute(
+            "transform",
+            `rotate(${i * 60})`
+        );
+
+
+        group.appendChild(petal);
+
+    }
+
+
+    /* smaller petals */
+
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        const petal = create("ellipse");
+
+
+        petal.setAttribute(
+            "cx",
+            0
+        );
+
+        petal.setAttribute(
+            "cy",
+            -size * 0.28
+        );
+
+        petal.setAttribute(
+            "rx",
+            size * 0.18
+        );
+
+        petal.setAttribute(
+            "ry",
+            size * 0.34
+        );
+
+        petal.setAttribute(
+            "fill",
+            innerColor
+        );
+
+        petal.setAttribute(
+            "transform",
+            `rotate(${i * 60 + 30})`
+        );
+
+
+        group.appendChild(petal);
+
+    }
+
+
+    /* centre */
+
+    const centre = create("circle");
+
+
+    centre.setAttribute(
+        "r",
+        size * 0.18
+    );
+
+    centre.setAttribute(
+        "fill",
+        centerColor
+    );
+
+
+    group.appendChild(centre);
+
+
+    return group;
+
+}
+
+
+/* =================================================
+   GREEN LEAF RING
+================================================= */
+
+function createLeaves() {
+
+    const group =
+        document.getElementById(
+            "leaves"
+        );
+
+
+    const count = 48;
+
+    const radius = 275;
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const angle =
+            i * 360 / count;
+
+
+        const rad =
+            angle * Math.PI / 180;
+
+
+        const x =
+            325 +
+            Math.cos(rad) * radius;
+
+
+        const y =
+            325 +
+            Math.sin(rad) * radius;
+
+
+        const leaf =
+            create("ellipse");
+
+
+        leaf.setAttribute(
+            "cx",
+            x
+        );
+
+        leaf.setAttribute(
+            "cy",
+            y
+        );
+
+        leaf.setAttribute(
+            "rx",
+            7
+        );
+
+        leaf.setAttribute(
+            "ry",
+            20
+        );
+
+        leaf.setAttribute(
+            "fill",
+            i % 2 === 0
+                ? "#327743"
+                : "#4b914d"
+        );
+
+
+        leaf.setAttribute(
+            "transform",
+            `rotate(${angle + 40} ${x} ${y})`
+        );
+
+
+        group.appendChild(leaf);
+
+    }
+
+}
+
+
+/* =================================================
+   PURPLE + PINK RING
+================================================= */
+
+function createPurpleFlowers() {
+
+    const group =
+        document.getElementById(
+            "purpleFlowers"
+        );
+
+
+    const count = 28;
+
+    const radius = 240;
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const angle =
+            i * 360 / count;
+
+
+        const rad =
+            angle * Math.PI / 180;
+
+
+        const x =
+            325 +
+            Math.cos(rad) * radius;
+
+
+        const y =
+            325 +
+            Math.sin(rad) * radius;
+
+
+        const f =
+            flower(
+                x,
+                y,
+                18,
+                "#e45b83",
+                "#7550ad",
+                "#f3ca4c"
+            );
+
+
+        group.appendChild(f);
+
+    }
+
+}
+
+
+/* =================================================
+   WHITE FLOWERS
+================================================= */
+
+function createWhiteFlowers() {
+
+    const group =
+        document.getElementById(
+            "whiteFlowers"
+        );
+
+
+    const count = 40;
+
+    const radius = 205;
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const angle =
+            i * 360 / count;
+
+
+        const rad =
+            angle * Math.PI / 180;
+
+
+        const x =
+            325 +
+            Math.cos(rad) * radius;
+
+
+        const y =
+            325 +
+            Math.sin(rad) * radius;
+
+
+        const f =
+            flower(
+                x,
+                y,
+                11,
+                "#fffaf0",
+                "#f5efd9",
+                "#d5aa3d"
+            );
+
+
+        /* subtle golden outline */
+
+        const petals =
+            f.querySelectorAll(
+                "ellipse"
+            );
+
+
+        petals.forEach(
+            p => {
+
+                p.setAttribute(
+                    "stroke",
+                    "#dfc775"
+                );
+
+                p.setAttribute(
+                    "stroke-width",
+                    "1"
+                );
+
+            }
+        );
+
+
+        group.appendChild(f);
+
+    }
+
+}
+
+
+/* =================================================
+   ORANGE FLOWER RING
+================================================= */
+
+function createOrangeFlowers() {
+
+    const group =
+        document.getElementById(
+            "orangeFlowers"
+        );
+
+
+    const count = 28;
+
+    const radius = 165;
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const angle =
+            i * 360 / count;
+
+
+        const rad =
+            angle * Math.PI / 180;
+
+
+        const x =
+            325 +
+            Math.cos(rad) * radius;
+
+
+        const y =
+            325 +
+            Math.sin(rad) * radius;
+
+
+        const f =
+            flower(
+                x,
+                y,
+                16,
+                "#f08b18",
+                "#f5ae22",
+                "#bd6418"
+            );
+
+
+        group.appendChild(f);
+
+    }
+
+}
+
+
+/* =================================================
+   RED RING
+================================================= */
+
+function createRedFlowers() {
+
+    const group =
+        document.getElementById(
+            "redFlowers"
+        );
+
+
+    const count = 30;
+
+    const radius = 125;
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const angle =
+            i * 360 / count;
+
+
+        const rad =
+            angle * Math.PI / 180;
+
+
+        const x =
+            325 +
+            Math.cos(rad) * radius;
+
+
+        const y =
+            325 +
+            Math.sin(rad) * radius;
+
+
+        const f =
+            flower(
+                x,
+                y,
+                14,
+                "#d9431b",
+                "#ed671b",
+                "#e7bd46"
+            );
+
+
+        group.appendChild(f);
+
+    }
+
+}
+
+
+/* =================================================
+   YELLOW INNER RING
+================================================= */
+
+function createYellowFlowers() {
+
+    const group =
+        document.getElementById(
+            "yellowFlowers"
+        );
+
+
+    const count = 18;
+
+    const radius = 82;
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const angle =
+            i * 360 / count;
+
+
+        const rad =
+            angle * Math.PI / 180;
+
+
+        const x =
+            325 +
+            Math.cos(rad) * radius;
+
+
+        const y =
+            325 +
+            Math.sin(rad) * radius;
+
+
+        const f =
+            flower(
+                x,
+                y,
+                11,
+                "#f2b52c",
+                "#f39a18",
+                "#b85d18"
+            );
+
+
+        group.appendChild(f);
+
+    }
+
+}
+
+
+/* =================================================
+   RUN
+================================================= */
+
+createLeaves();
+
+createPurpleFlowers();
+
+createWhiteFlowers();
+
+createOrangeFlowers();
+
+createRedFlowers();
+
+createYellowFlowers();
+
+</script>
+
+
+</body>
+
+</html>
