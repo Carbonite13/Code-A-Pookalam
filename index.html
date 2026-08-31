@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pookkalam — 148 Closed Shapes with Color Studio & Live Palette</title>
+  <meta name="description" content="Vector art Pookkalam with 148 unique colored shapes, interactive Color Studio window by shape number, 16 floral presets, symmetry auto-coloring, and stroke controller." />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="hide-shape-numbers hide-landmarks">
+
+<main>
+  <header>
+    <div class="badge">Closed Vector Shapes Art</div>
+    <h1>✿ Pookkalam ✿</h1>
+  </header>
+
+    <!-- Interactive Control Panel with Stroke Thickness Slider and Color Studio Controls -->
+    <div class="control-panel">
+      <div class="controls-row">
+        <div class="slider-group">
+          <label class="slider-label" for="stroke-slider">
+            <span>Stroke Thickness:</span>
+            <span id="stroke-val" class="slider-badge">1.5px</span>
+          </label>
+          <input type="range" id="stroke-slider" class="custom-slider" min="0" max="8" step="0.1" value="1.5" />
+        </div>
+
+        <div class="toggle-wrapper">
+          <input type="checkbox" id="toggle-color-mode" class="toggle-checkbox" checked />
+          <label class="toggle-switch" for="toggle-color-mode">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">✿ Color Mode</span>
+          </label>
+        </div>
+
+        <div class="toggle-wrapper">
+          <input type="checkbox" id="toggle-shape-numbers" class="toggle-checkbox" />
+          <label class="toggle-switch" for="toggle-shape-numbers">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">Shape Numbers (1–148)</span>
+          </label>
+        </div>
+
+        <div class="toggle-wrapper">
+          <input type="checkbox" id="toggle-swirl-c4" class="toggle-checkbox" checked />
+          <label class="toggle-switch" for="toggle-swirl-c4" title="Toggle lines C1-S24, C5-S16, C2-S4, C3-S8, C4-S12, C6-S20">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">Lines C–S (C1-S24, C2-S4...)</span>
+          </label>
+        </div>
+
+        <div class="toggle-wrapper">
+          <input type="checkbox" id="toggle-landmarks" class="toggle-checkbox" />
+          <label class="toggle-switch" for="toggle-landmarks">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text">Named Intersections</span>
+          </label>
+        </div>
+
+        <button id="btn-open-color-studio" class="btn-studio-action" title="Open Color Studio Window">
+          <span class="studio-btn-icon">🎨</span>
+          <span class="studio-btn-text">Color Studio</span>
+          <span id="active-shape-pill" class="active-pill">#1</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="canvas-wrapper">
+    <div class="pookkalam-phase1">
+      <!-- SINGLE MASTER VECTOR SVG DRAWING COMPOSED OF CLOSED SHAPES -->
+      <svg class="pookkalam-svg" viewBox="-350 -350 700 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Central Circle Clipping Mask -->
+          <clipPath id="central-circle-clip">
+            <circle cx="0" cy="0" r="110" />
+          </clipPath>
+
+          <!-- Main Continuous Petal Boundary Arc (C6 to S4) -->
+          <path id="petal-boundary-main" class="petal-swirl-line" d="M -95.263,-55.0 A 110,110 0 1 1 104.61,-76.01" />
+
+          <!-- Base Petal Boundary Segment (S4 to C2) -->
+          <path id="petal-boundary-base-cs" class="petal-swirl-line line-cs-base" d="M 104.61,-76.01 A 110,110 0 0 1 95.263,-55.0" />
+
+          <!-- 2. Set A: Outer Swirl Curves from R1 (-95.26, -165) -->
+          <g id="petal-swirl-R" class="swirl-group-R">
+            <path class="petal-swirl-line swirl-R-1" d="M -95.26,-165 C -53.26,-183.0 -11.48,-160.60 13.52,-128.60" />
+            <path class="petal-swirl-line swirl-R-2" d="M -95.26,-165 C -53.26,-199.0 5.61,-175.99 30.61,-143.99" />
+            <path class="petal-swirl-line swirl-R-3" d="M -95.26,-165 C -53.26,-215.0 25.52,-187.49 50.52,-155.49" />
+            <path class="petal-swirl-line swirl-R-4" d="M -95.26,-165 C -53.26,-231.0 47.39,-194.60 72.39,-162.60" />
+          </g>
+
+                    <!-- 3. Set B: Inner Swirl Curves from C1 (0, -110) (Swirls 1 to 4) -->
+          <g id="petal-swirl-C" class="swirl-group-C">
+            <path class="petal-swirl-line swirl-C-1" d="M 0,-110 A 110,110 0 0 1 104.61,-143.99" />
+            <path class="petal-swirl-line swirl-C-2" d="M 0,-110 A 110,110 0 0 1 109.40,-121.50" />
+            <path class="petal-swirl-line swirl-C-3" d="M 0,-110 A 110,110 0 0 1 109.40,-98.50" />
+            <path class="petal-swirl-line swirl-C-4" d="M 0,-110 A 110,110 0 0 1 104.61,-76.01" />
+          </g>
+
+          <!-- 4. Radial Spoke Unit (r=220 to r=300) -->
+          <line id="radial-spoke" class="outer-divider-line" x1="0" y1="-220" x2="0" y2="-300" />
+
+          <!-- 5. Single Quadrant Central Spiral Blade Unit -->
+          <path id="spiral-blade-unit" class="central-spiral-blade" d="M 22,-31 A 75,75 0 0 0 -53,-106" />
+        </defs>
+
+        <!-- MASTER UNIFIED POOKKALAM GROUP -->
+        <g id="pookkalam-master-drawing">
+          <!-- Guide Axes -->
+          <g id="group-guides" class="guides-layer">
+            <line class="guide-axis-line" x1="0" y1="-310" x2="0" y2="310" />
+            <line class="guide-axis-line" x1="-310" y1="0" x2="310" y2="0" />
+          </g>
+
+          <!-- 1. Closed Vector Shapes Fill Layer (148 Shapes) -->
+          <g id="pookkalam-closed-shapes-layer">
+          <!-- Concentric Ring Cells (48 Shapes: 1–48) -->
+          <g id="group-ring-shapes">
+            <path id="shape-1" class="pookkalam-cell cell-ring" data-cell-id="1" data-category="Concentric Ring 1, Sector 1" d="M 0.0,-220.0 L 0.0,-240.0 A 240,240 0 0 1 120.0,-207.85 L 110.0,-190.53 A 220,220 0 0 0 0.0,-220.0 Z" />
+            <path id="shape-2" class="pookkalam-cell cell-ring" data-cell-id="2" data-category="Concentric Ring 1, Sector 2" d="M 110.0,-190.53 L 120.0,-207.85 A 240,240 0 0 1 207.85,-120.0 L 190.53,-110.0 A 220,220 0 0 0 110.0,-190.53 Z" />
+            <path id="shape-3" class="pookkalam-cell cell-ring" data-cell-id="3" data-category="Concentric Ring 1, Sector 3" d="M 190.53,-110.0 L 207.85,-120.0 A 240,240 0 0 1 240.0,-0.0 L 220.0,-0.0 A 220,220 0 0 0 190.53,-110.0 Z" />
+            <path id="shape-4" class="pookkalam-cell cell-ring" data-cell-id="4" data-category="Concentric Ring 1, Sector 4" d="M 220.0,-0.0 L 240.0,-0.0 A 240,240 0 0 1 207.85,120.0 L 190.53,110.0 A 220,220 0 0 0 220.0,-0.0 Z" />
+            <path id="shape-5" class="pookkalam-cell cell-ring" data-cell-id="5" data-category="Concentric Ring 1, Sector 5" d="M 190.53,110.0 L 207.85,120.0 A 240,240 0 0 1 120.0,207.85 L 110.0,190.53 A 220,220 0 0 0 190.53,110.0 Z" />
+            <path id="shape-6" class="pookkalam-cell cell-ring" data-cell-id="6" data-category="Concentric Ring 1, Sector 6" d="M 110.0,190.53 L 120.0,207.85 A 240,240 0 0 1 0.0,240.0 L 0.0,220.0 A 220,220 0 0 0 110.0,190.53 Z" />
+            <path id="shape-7" class="pookkalam-cell cell-ring" data-cell-id="7" data-category="Concentric Ring 1, Sector 7" d="M 0.0,220.0 L 0.0,240.0 A 240,240 0 0 1 -120.0,207.85 L -110.0,190.53 A 220,220 0 0 0 0.0,220.0 Z" />
+            <path id="shape-8" class="pookkalam-cell cell-ring" data-cell-id="8" data-category="Concentric Ring 1, Sector 8" d="M -110.0,190.53 L -120.0,207.85 A 240,240 0 0 1 -207.85,120.0 L -190.53,110.0 A 220,220 0 0 0 -110.0,190.53 Z" />
+            <path id="shape-9" class="pookkalam-cell cell-ring" data-cell-id="9" data-category="Concentric Ring 1, Sector 9" d="M -190.53,110.0 L -207.85,120.0 A 240,240 0 0 1 -240.0,0.0 L -220.0,0.0 A 220,220 0 0 0 -190.53,110.0 Z" />
+            <path id="shape-10" class="pookkalam-cell cell-ring" data-cell-id="10" data-category="Concentric Ring 1, Sector 10" d="M -220.0,0.0 L -240.0,0.0 A 240,240 0 0 1 -207.85,-120.0 L -190.53,-110.0 A 220,220 0 0 0 -220.0,0.0 Z" />
+            <path id="shape-11" class="pookkalam-cell cell-ring" data-cell-id="11" data-category="Concentric Ring 1, Sector 11" d="M -190.53,-110.0 L -207.85,-120.0 A 240,240 0 0 1 -120.0,-207.85 L -110.0,-190.53 A 220,220 0 0 0 -190.53,-110.0 Z" />
+            <path id="shape-12" class="pookkalam-cell cell-ring" data-cell-id="12" data-category="Concentric Ring 1, Sector 12" d="M -110.0,-190.53 L -120.0,-207.85 A 240,240 0 0 1 -0.0,-240.0 L -0.0,-220.0 A 220,220 0 0 0 -110.0,-190.53 Z" />
+            <path id="shape-13" class="pookkalam-cell cell-ring" data-cell-id="13" data-category="Concentric Ring 2, Sector 1" d="M 0.0,-240.0 L 0.0,-260.0 A 260,260 0 0 1 130.0,-225.17 L 120.0,-207.85 A 240,240 0 0 0 0.0,-240.0 Z" />
+            <path id="shape-14" class="pookkalam-cell cell-ring" data-cell-id="14" data-category="Concentric Ring 2, Sector 2" d="M 120.0,-207.85 L 130.0,-225.17 A 260,260 0 0 1 225.17,-130.0 L 207.85,-120.0 A 240,240 0 0 0 120.0,-207.85 Z" />
+            <path id="shape-15" class="pookkalam-cell cell-ring" data-cell-id="15" data-category="Concentric Ring 2, Sector 3" d="M 207.85,-120.0 L 225.17,-130.0 A 260,260 0 0 1 260.0,-0.0 L 240.0,-0.0 A 240,240 0 0 0 207.85,-120.0 Z" />
+            <path id="shape-16" class="pookkalam-cell cell-ring" data-cell-id="16" data-category="Concentric Ring 2, Sector 4" d="M 240.0,-0.0 L 260.0,-0.0 A 260,260 0 0 1 225.17,130.0 L 207.85,120.0 A 240,240 0 0 0 240.0,-0.0 Z" />
+            <path id="shape-17" class="pookkalam-cell cell-ring" data-cell-id="17" data-category="Concentric Ring 2, Sector 5" d="M 207.85,120.0 L 225.17,130.0 A 260,260 0 0 1 130.0,225.17 L 120.0,207.85 A 240,240 0 0 0 207.85,120.0 Z" />
+            <path id="shape-18" class="pookkalam-cell cell-ring" data-cell-id="18" data-category="Concentric Ring 2, Sector 6" d="M 120.0,207.85 L 130.0,225.17 A 260,260 0 0 1 0.0,260.0 L 0.0,240.0 A 240,240 0 0 0 120.0,207.85 Z" />
+            <path id="shape-19" class="pookkalam-cell cell-ring" data-cell-id="19" data-category="Concentric Ring 2, Sector 7" d="M 0.0,240.0 L 0.0,260.0 A 260,260 0 0 1 -130.0,225.17 L -120.0,207.85 A 240,240 0 0 0 0.0,240.0 Z" />
+            <path id="shape-20" class="pookkalam-cell cell-ring" data-cell-id="20" data-category="Concentric Ring 2, Sector 8" d="M -120.0,207.85 L -130.0,225.17 A 260,260 0 0 1 -225.17,130.0 L -207.85,120.0 A 240,240 0 0 0 -120.0,207.85 Z" />
+            <path id="shape-21" class="pookkalam-cell cell-ring" data-cell-id="21" data-category="Concentric Ring 2, Sector 9" d="M -207.85,120.0 L -225.17,130.0 A 260,260 0 0 1 -260.0,0.0 L -240.0,0.0 A 240,240 0 0 0 -207.85,120.0 Z" />
+            <path id="shape-22" class="pookkalam-cell cell-ring" data-cell-id="22" data-category="Concentric Ring 2, Sector 10" d="M -240.0,0.0 L -260.0,0.0 A 260,260 0 0 1 -225.17,-130.0 L -207.85,-120.0 A 240,240 0 0 0 -240.0,0.0 Z" />
+            <path id="shape-23" class="pookkalam-cell cell-ring" data-cell-id="23" data-category="Concentric Ring 2, Sector 11" d="M -207.85,-120.0 L -225.17,-130.0 A 260,260 0 0 1 -130.0,-225.17 L -120.0,-207.85 A 240,240 0 0 0 -207.85,-120.0 Z" />
+            <path id="shape-24" class="pookkalam-cell cell-ring" data-cell-id="24" data-category="Concentric Ring 2, Sector 12" d="M -120.0,-207.85 L -130.0,-225.17 A 260,260 0 0 1 -0.0,-260.0 L -0.0,-240.0 A 240,240 0 0 0 -120.0,-207.85 Z" />
+            <path id="shape-25" class="pookkalam-cell cell-ring" data-cell-id="25" data-category="Concentric Ring 3, Sector 1" d="M 0.0,-260.0 L 0.0,-280.0 A 280,280 0 0 1 140.0,-242.49 L 130.0,-225.17 A 260,260 0 0 0 0.0,-260.0 Z" />
+            <path id="shape-26" class="pookkalam-cell cell-ring" data-cell-id="26" data-category="Concentric Ring 3, Sector 2" d="M 130.0,-225.17 L 140.0,-242.49 A 280,280 0 0 1 242.49,-140.0 L 225.17,-130.0 A 260,260 0 0 0 130.0,-225.17 Z" />
+            <path id="shape-27" class="pookkalam-cell cell-ring" data-cell-id="27" data-category="Concentric Ring 3, Sector 3" d="M 225.17,-130.0 L 242.49,-140.0 A 280,280 0 0 1 280.0,-0.0 L 260.0,-0.0 A 260,260 0 0 0 225.17,-130.0 Z" />
+            <path id="shape-28" class="pookkalam-cell cell-ring" data-cell-id="28" data-category="Concentric Ring 3, Sector 4" d="M 260.0,-0.0 L 280.0,-0.0 A 280,280 0 0 1 242.49,140.0 L 225.17,130.0 A 260,260 0 0 0 260.0,-0.0 Z" />
+            <path id="shape-29" class="pookkalam-cell cell-ring" data-cell-id="29" data-category="Concentric Ring 3, Sector 5" d="M 225.17,130.0 L 242.49,140.0 A 280,280 0 0 1 140.0,242.49 L 130.0,225.17 A 260,260 0 0 0 225.17,130.0 Z" />
+            <path id="shape-30" class="pookkalam-cell cell-ring" data-cell-id="30" data-category="Concentric Ring 3, Sector 6" d="M 130.0,225.17 L 140.0,242.49 A 280,280 0 0 1 0.0,280.0 L 0.0,260.0 A 260,260 0 0 0 130.0,225.17 Z" />
+            <path id="shape-31" class="pookkalam-cell cell-ring" data-cell-id="31" data-category="Concentric Ring 3, Sector 7" d="M 0.0,260.0 L 0.0,280.0 A 280,280 0 0 1 -140.0,242.49 L -130.0,225.17 A 260,260 0 0 0 0.0,260.0 Z" />
+            <path id="shape-32" class="pookkalam-cell cell-ring" data-cell-id="32" data-category="Concentric Ring 3, Sector 8" d="M -130.0,225.17 L -140.0,242.49 A 280,280 0 0 1 -242.49,140.0 L -225.17,130.0 A 260,260 0 0 0 -130.0,225.17 Z" />
+            <path id="shape-33" class="pookkalam-cell cell-ring" data-cell-id="33" data-category="Concentric Ring 3, Sector 9" d="M -225.17,130.0 L -242.49,140.0 A 280,280 0 0 1 -280.0,0.0 L -260.0,0.0 A 260,260 0 0 0 -225.17,130.0 Z" />
+            <path id="shape-34" class="pookkalam-cell cell-ring" data-cell-id="34" data-category="Concentric Ring 3, Sector 10" d="M -260.0,0.0 L -280.0,0.0 A 280,280 0 0 1 -242.49,-140.0 L -225.17,-130.0 A 260,260 0 0 0 -260.0,0.0 Z" />
+            <path id="shape-35" class="pookkalam-cell cell-ring" data-cell-id="35" data-category="Concentric Ring 3, Sector 11" d="M -225.17,-130.0 L -242.49,-140.0 A 280,280 0 0 1 -140.0,-242.49 L -130.0,-225.17 A 260,260 0 0 0 -225.17,-130.0 Z" />
+            <path id="shape-36" class="pookkalam-cell cell-ring" data-cell-id="36" data-category="Concentric Ring 3, Sector 12" d="M -130.0,-225.17 L -140.0,-242.49 A 280,280 0 0 1 -0.0,-280.0 L -0.0,-260.0 A 260,260 0 0 0 -130.0,-225.17 Z" />
+            <path id="shape-37" class="pookkalam-cell cell-ring" data-cell-id="37" data-category="Concentric Ring 4, Sector 1" d="M 0.0,-280.0 L 0.0,-300.0 A 300,300 0 0 1 150.0,-259.81 L 140.0,-242.49 A 280,280 0 0 0 0.0,-280.0 Z" />
+            <path id="shape-38" class="pookkalam-cell cell-ring" data-cell-id="38" data-category="Concentric Ring 4, Sector 2" d="M 140.0,-242.49 L 150.0,-259.81 A 300,300 0 0 1 259.81,-150.0 L 242.49,-140.0 A 280,280 0 0 0 140.0,-242.49 Z" />
+            <path id="shape-39" class="pookkalam-cell cell-ring" data-cell-id="39" data-category="Concentric Ring 4, Sector 3" d="M 242.49,-140.0 L 259.81,-150.0 A 300,300 0 0 1 300.0,-0.0 L 280.0,-0.0 A 280,280 0 0 0 242.49,-140.0 Z" />
+            <path id="shape-40" class="pookkalam-cell cell-ring" data-cell-id="40" data-category="Concentric Ring 4, Sector 4" d="M 280.0,-0.0 L 300.0,-0.0 A 300,300 0 0 1 259.81,150.0 L 242.49,140.0 A 280,280 0 0 0 280.0,-0.0 Z" />
+            <path id="shape-41" class="pookkalam-cell cell-ring" data-cell-id="41" data-category="Concentric Ring 4, Sector 5" d="M 242.49,140.0 L 259.81,150.0 A 300,300 0 0 1 150.0,259.81 L 140.0,242.49 A 280,280 0 0 0 242.49,140.0 Z" />
+            <path id="shape-42" class="pookkalam-cell cell-ring" data-cell-id="42" data-category="Concentric Ring 4, Sector 6" d="M 140.0,242.49 L 150.0,259.81 A 300,300 0 0 1 0.0,300.0 L 0.0,280.0 A 280,280 0 0 0 140.0,242.49 Z" />
+            <path id="shape-43" class="pookkalam-cell cell-ring" data-cell-id="43" data-category="Concentric Ring 4, Sector 7" d="M 0.0,280.0 L 0.0,300.0 A 300,300 0 0 1 -150.0,259.81 L -140.0,242.49 A 280,280 0 0 0 0.0,280.0 Z" />
+            <path id="shape-44" class="pookkalam-cell cell-ring" data-cell-id="44" data-category="Concentric Ring 4, Sector 8" d="M -140.0,242.49 L -150.0,259.81 A 300,300 0 0 1 -259.81,150.0 L -242.49,140.0 A 280,280 0 0 0 -140.0,242.49 Z" />
+            <path id="shape-45" class="pookkalam-cell cell-ring" data-cell-id="45" data-category="Concentric Ring 4, Sector 9" d="M -242.49,140.0 L -259.81,150.0 A 300,300 0 0 1 -300.0,0.0 L -280.0,0.0 A 280,280 0 0 0 -242.49,140.0 Z" />
+            <path id="shape-46" class="pookkalam-cell cell-ring" data-cell-id="46" data-category="Concentric Ring 4, Sector 10" d="M -280.0,0.0 L -300.0,0.0 A 300,300 0 0 1 -259.81,-150.0 L -242.49,-140.0 A 280,280 0 0 0 -280.0,0.0 Z" />
+            <path id="shape-47" class="pookkalam-cell cell-ring" data-cell-id="47" data-category="Concentric Ring 4, Sector 11" d="M -242.49,-140.0 L -259.81,-150.0 A 300,300 0 0 1 -150.0,-259.81 L -140.0,-242.49 A 280,280 0 0 0 -242.49,-140.0 Z" />
+            <path id="shape-48" class="pookkalam-cell cell-ring" data-cell-id="48" data-category="Concentric Ring 4, Sector 12" d="M -140.0,-242.49 L -150.0,-259.81 A 300,300 0 0 1 -0.0,-300.0 L -0.0,-280.0 A 280,280 0 0 0 -140.0,-242.49 Z" />
+          </g>
+
+          <!-- Central Mandala Blade Shapes (30 Shapes: 49–78) -->
+          <g id="group-blade-shapes">
+            <path id="shape-49" class="pookkalam-cell cell-central-blade" data-cell-id="49" data-category="Central Blade 1" d="M 22.0,-31.0 A 75,75 0 0 0 -35.81,-104.01 A 110,110 0 0 1 -13.4,-109.18 A 75,75 0 0 1 27.96,-25.75 A 38,38 0 0 0 22.0,-31.0 Z" />
+            <path id="shape-50" class="pookkalam-cell cell-central-blade" data-cell-id="50" data-category="Central Blade 2" d="M 27.96,-25.75 A 75,75 0 0 0 -13.4,-109.18 A 110,110 0 0 1 9.59,-109.58 A 75,75 0 0 1 32.71,-19.37 A 38,38 0 0 0 27.96,-25.75 Z" />
+            <path id="shape-51" class="pookkalam-cell cell-central-blade" data-cell-id="51" data-category="Central Blade 3" d="M 32.71,-19.37 A 75,75 0 0 0 9.59,-109.58 A 110,110 0 0 1 32.16,-105.19 A 75,75 0 0 1 36.02,-12.15 A 38,38 0 0 0 32.71,-19.37 Z" />
+            <path id="shape-52" class="pookkalam-cell cell-central-blade" data-cell-id="52" data-category="Central Blade 4" d="M 36.02,-12.15 A 75,75 0 0 0 32.16,-105.19 A 110,110 0 0 1 53.33,-96.21 A 75,75 0 0 1 37.76,-4.39 A 38,38 0 0 0 36.02,-12.15 Z" />
+            <path id="shape-53" class="pookkalam-cell cell-central-blade" data-cell-id="53" data-category="Central Blade 5" d="M 37.76,-4.39 A 75,75 0 0 0 53.33,-96.21 A 110,110 0 0 1 72.17,-83.02 A 75,75 0 0 1 37.85,3.55 A 38,38 0 0 0 37.76,-4.39 Z" />
+            <path id="shape-54" class="pookkalam-cell cell-central-blade" data-cell-id="54" data-category="Central Blade 6" d="M 37.85,3.55 A 75,75 0 0 0 72.17,-83.02 A 110,110 0 0 1 87.85,-66.2 A 75,75 0 0 1 36.28,11.34 A 38,38 0 0 0 37.85,3.55 Z" />
+            <path id="shape-55" class="pookkalam-cell cell-central-blade" data-cell-id="55" data-category="Central Blade 7" d="M 36.28,11.34 A 75,75 0 0 0 87.85,-66.2 A 110,110 0 0 1 99.7,-46.49 A 75,75 0 0 1 33.13,18.64 A 38,38 0 0 0 36.28,11.34 Z" />
+            <path id="shape-56" class="pookkalam-cell cell-central-blade" data-cell-id="56" data-category="Central Blade 8" d="M 33.13,18.64 A 75,75 0 0 0 99.7,-46.49 A 110,110 0 0 1 107.18,-24.74 A 75,75 0 0 1 28.53,25.12 A 38,38 0 0 0 33.13,18.64 Z" />
+            <path id="shape-57" class="pookkalam-cell cell-central-blade" data-cell-id="57" data-category="Central Blade 9" d="M 28.53,25.12 A 75,75 0 0 0 107.18,-24.74 A 110,110 0 0 1 109.99,-1.92 A 75,75 0 0 1 22.68,30.5 A 38,38 0 0 0 28.53,25.12 Z" />
+            <path id="shape-58" class="pookkalam-cell cell-central-blade" data-cell-id="58" data-category="Central Blade 10" d="M 22.68,30.5 A 75,75 0 0 0 109.99,-1.92 A 110,110 0 0 1 107.98,20.99 A 75,75 0 0 1 15.85,34.55 A 38,38 0 0 0 22.68,30.5 Z" />
+            <path id="shape-59" class="pookkalam-cell cell-central-blade" data-cell-id="59" data-category="Central Blade 11" d="M 15.85,34.55 A 75,75 0 0 0 107.98,20.99 A 110,110 0 0 1 101.26,42.98 A 75,75 0 0 1 8.32,37.09 A 38,38 0 0 0 15.85,34.55 Z" />
+            <path id="shape-60" class="pookkalam-cell cell-central-blade" data-cell-id="60" data-category="Central Blade 12" d="M 8.32,37.09 A 75,75 0 0 0 101.26,42.98 A 110,110 0 0 1 90.11,63.1 A 75,75 0 0 1 0.42,38.01 A 38,38 0 0 0 8.32,37.09 Z" />
+            <path id="shape-61" class="pookkalam-cell cell-central-blade" data-cell-id="61" data-category="Central Blade 13" d="M 0.42,38.01 A 75,75 0 0 0 90.11,63.1 A 110,110 0 0 1 75.02,80.45 A 75,75 0 0 1 -7.49,37.27 A 38,38 0 0 0 0.42,38.01 Z" />
+            <path id="shape-62" class="pookkalam-cell cell-central-blade" data-cell-id="62" data-category="Central Blade 14" d="M -7.49,37.27 A 75,75 0 0 0 75.02,80.45 A 110,110 0 0 1 56.65,94.29 A 75,75 0 0 1 -15.07,34.9 A 38,38 0 0 0 -7.49,37.27 Z" />
+            <path id="shape-63" class="pookkalam-cell cell-central-blade" data-cell-id="63" data-category="Central Blade 15" d="M -15.07,34.9 A 75,75 0 0 0 56.65,94.29 A 110,110 0 0 1 35.81,104.01 A 75,75 0 0 1 -22.0,31.0 A 38,38 0 0 0 -15.07,34.9 Z" />
+            <path id="shape-64" class="pookkalam-cell cell-central-blade" data-cell-id="64" data-category="Central Blade 16" d="M -22.0,31.0 A 75,75 0 0 0 35.81,104.01 A 110,110 0 0 1 13.4,109.18 A 75,75 0 0 1 -27.96,25.75 A 38,38 0 0 0 -22.0,31.0 Z" />
+            <path id="shape-65" class="pookkalam-cell cell-central-blade" data-cell-id="65" data-category="Central Blade 17" d="M -27.96,25.75 A 75,75 0 0 0 13.4,109.18 A 110,110 0 0 1 -9.59,109.58 A 75,75 0 0 1 -32.71,19.37 A 38,38 0 0 0 -27.96,25.75 Z" />
+            <path id="shape-66" class="pookkalam-cell cell-central-blade" data-cell-id="66" data-category="Central Blade 18" d="M -32.71,19.37 A 75,75 0 0 0 -9.59,109.58 A 110,110 0 0 1 -32.16,105.19 A 75,75 0 0 1 -36.02,12.15 A 38,38 0 0 0 -32.71,19.37 Z" />
+            <path id="shape-67" class="pookkalam-cell cell-central-blade" data-cell-id="67" data-category="Central Blade 19" d="M -36.02,12.15 A 75,75 0 0 0 -32.16,105.19 A 110,110 0 0 1 -53.33,96.21 A 75,75 0 0 1 -37.76,4.39 A 38,38 0 0 0 -36.02,12.15 Z" />
+            <path id="shape-68" class="pookkalam-cell cell-central-blade" data-cell-id="68" data-category="Central Blade 20" d="M -37.76,4.39 A 75,75 0 0 0 -53.33,96.21 A 110,110 0 0 1 -72.17,83.02 A 75,75 0 0 1 -37.85,-3.55 A 38,38 0 0 0 -37.76,4.39 Z" />
+            <path id="shape-69" class="pookkalam-cell cell-central-blade" data-cell-id="69" data-category="Central Blade 21" d="M -37.85,-3.55 A 75,75 0 0 0 -72.17,83.02 A 110,110 0 0 1 -87.85,66.2 A 75,75 0 0 1 -36.28,-11.34 A 38,38 0 0 0 -37.85,-3.55 Z" />
+            <path id="shape-70" class="pookkalam-cell cell-central-blade" data-cell-id="70" data-category="Central Blade 22" d="M -36.28,-11.34 A 75,75 0 0 0 -87.85,66.2 A 110,110 0 0 1 -99.7,46.49 A 75,75 0 0 1 -33.13,-18.64 A 38,38 0 0 0 -36.28,-11.34 Z" />
+            <path id="shape-71" class="pookkalam-cell cell-central-blade" data-cell-id="71" data-category="Central Blade 23" d="M -33.13,-18.64 A 75,75 0 0 0 -99.7,46.49 A 110,110 0 0 1 -107.18,24.74 A 75,75 0 0 1 -28.53,-25.12 A 38,38 0 0 0 -33.13,-18.64 Z" />
+            <path id="shape-72" class="pookkalam-cell cell-central-blade" data-cell-id="72" data-category="Central Blade 24" d="M -28.53,-25.12 A 75,75 0 0 0 -107.18,24.74 A 110,110 0 0 1 -109.99,1.92 A 75,75 0 0 1 -22.68,-30.5 A 38,38 0 0 0 -28.53,-25.12 Z" />
+            <path id="shape-73" class="pookkalam-cell cell-central-blade" data-cell-id="73" data-category="Central Blade 25" d="M -22.68,-30.5 A 75,75 0 0 0 -109.99,1.92 A 110,110 0 0 1 -107.98,-20.99 A 75,75 0 0 1 -15.85,-34.55 A 38,38 0 0 0 -22.68,-30.5 Z" />
+            <path id="shape-74" class="pookkalam-cell cell-central-blade" data-cell-id="74" data-category="Central Blade 26" d="M -15.85,-34.55 A 75,75 0 0 0 -107.98,-20.99 A 110,110 0 0 1 -101.26,-42.98 A 75,75 0 0 1 -8.32,-37.09 A 38,38 0 0 0 -15.85,-34.55 Z" />
+            <path id="shape-75" class="pookkalam-cell cell-central-blade" data-cell-id="75" data-category="Central Blade 27" d="M -8.32,-37.09 A 75,75 0 0 0 -101.26,-42.98 A 110,110 0 0 1 -90.11,-63.1 A 75,75 0 0 1 -0.42,-38.01 A 38,38 0 0 0 -8.32,-37.09 Z" />
+            <path id="shape-76" class="pookkalam-cell cell-central-blade" data-cell-id="76" data-category="Central Blade 28" d="M -0.42,-38.01 A 75,75 0 0 0 -90.11,-63.1 A 110,110 0 0 1 -75.02,-80.45 A 75,75 0 0 1 7.49,-37.27 A 38,38 0 0 0 -0.42,-38.01 Z" />
+            <path id="shape-77" class="pookkalam-cell cell-central-blade" data-cell-id="77" data-category="Central Blade 29" d="M 7.49,-37.27 A 75,75 0 0 0 -75.02,-80.45 A 110,110 0 0 1 -56.65,-94.29 A 75,75 0 0 1 15.07,-34.9 A 38,38 0 0 0 7.49,-37.27 Z" />
+            <path id="shape-78" class="pookkalam-cell cell-central-blade" data-cell-id="78" data-category="Central Blade 30" d="M 15.07,-34.9 A 75,75 0 0 0 -56.65,-94.29 A 110,110 0 0 1 -35.81,-104.01 A 75,75 0 0 1 22.0,-31.0 A 38,38 0 0 0 15.07,-34.9 Z" />
+          </g>
+
+          <!-- Central Collar & Hub Shapes (4 Shapes: 79–82) -->
+          <g id="group-collar-shapes">
+            <circle id="shape-79" class="pookkalam-cell cell-center-dot" data-cell-id="79" data-category="Center Compass Dot" cx="0" cy="0" r="2.5" />
+            <path id="shape-80" class="pookkalam-cell cell-center-hub" data-cell-id="80" data-category="Inner Hub Ring" d="M 0,-18.5 A 18.5,18.5 0 1 1 0,18.5 A 18.5,18.5 0 1 1 0,-18.5 M 0,-2.5 A 2.5,2.5 0 1 0 0,2.5 A 2.5,2.5 0 1 0 0,-2.5 Z" />
+            <path id="shape-81" class="pookkalam-cell cell-collar-ring" data-cell-id="81" data-category="Double Collar Ring" d="M 0,-22 A 22,22 0 1 1 0,22 A 22,22 0 1 1 0,-22 M 0,-18.5 A 18.5,18.5 0 1 0 0,18.5 A 18.5,18.5 0 1 0 0,-18.5 Z" />
+            <path id="shape-82" class="pookkalam-cell cell-collar-hub" data-cell-id="82" data-category="Collar-to-Hub Band" d="M 0,-38 A 38,38 0 1 1 0,38 A 38,38 0 1 1 0,-38 M 0,-22 A 22,22 0 1 0 0,22 A 22,22 0 1 0 0,-22 Z" />
+          </g>
+
+          <!-- Petal Swirl Ribbons & Flank Regions (60 Shapes: 83–142) -->
+                    <!-- Petal Swirl Ribbons & Flank Regions (60 Shapes: 83–142) -->
+          <!-- 5 Outer Swirl shapes at apex + 5 Inner Swirl shapes in flank per petal × 6 petals -->
+                    <!-- Petal Swirl Ribbons & Flank Regions (60 Shapes: 83–142) -->
+          <!-- 5 Outer Swirl shapes at apex + 5 Inner Swirl shapes in flank per petal × 6 petals -->
+                    <!-- Petal Swirl Ribbons & Flank Regions (60 Shapes: 83–142) -->
+          <!-- 5 Outer Swirl shapes at apex + 5 Inner Swirl shapes in flank per petal × 6 petals -->
+          <g id="group-petal-shapes">
+            <path id="shape-83" class="pookkalam-cell cell-petal-swirl" data-cell-id="83" data-category="Petal 1 Outer Strip A4-A3" d="M -95.26,-165.0 C -53.26,-231.0 47.39,-194.6 72.39,-162.6 A 110,110 0 0 0 50.52,-155.49 C 25.52,-187.49 -53.26,-215.0 -95.26,-165.0 Z" />
+            <path id="shape-84" class="pookkalam-cell cell-petal-swirl" data-cell-id="84" data-category="Petal 1 Outer Strip A3-A2" d="M -95.26,-165.0 C -53.26,-215.0 25.52,-187.49 50.52,-155.49 A 110,110 0 0 0 30.61,-143.99 C 5.61,-175.99 -53.26,-199.0 -95.26,-165.0 Z" />
+            <path id="shape-85" class="pookkalam-cell cell-petal-swirl" data-cell-id="85" data-category="Petal 1 Outer Strip A2-A1" d="M -95.26,-165.0 C -53.26,-199.0 5.61,-175.99 30.61,-143.99 A 110,110 0 0 0 13.52,-128.6 C -11.48,-160.6 -53.26,-183.0 -95.26,-165.0 Z" />
+            <path id="shape-86" class="pookkalam-cell cell-petal-swirl" data-cell-id="86" data-category="Petal 1 Outer Base Junction" d="M -95.26,-165.0 C -53.26,-183.0 -11.48,-160.6 13.52,-128.6 A 110,110 0 0 0 0.0,-110.0 A 110,110 0 0 0 -95.26,-165.0 Z" />
+            <path id="shape-87" class="pookkalam-cell cell-petal-swirl" data-cell-id="87" data-category="Petal 1 Apex Cap" d="M -95.26,-165.0 C -53.26,-231.0 47.39,-194.6 72.39,-162.6 A 110,110 0 0 1 95.26,-165.0 A 110,110 0 0 0 -95.26,-165.0 Z" />
+            <path id="shape-88" class="pookkalam-cell cell-petal-swirl" data-cell-id="88" data-category="Petal 1 Inner Ribbon R-S1" d="M 0.0,-110.0 A 110,110 0 0 1 95.26,-165.0 A 110,110 0 0 1 104.61,-143.99 A 110,110 0 0 0 0.0,-110.0 Z" />
+            <path id="shape-89" class="pookkalam-cell cell-petal-swirl" data-cell-id="89" data-category="Petal 1 Inner Ribbon S1-S2" d="M 0.0,-110.0 A 110,110 0 0 1 104.61,-143.99 A 110,110 0 0 1 109.4,-121.5 A 110,110 0 0 0 0.0,-110.0 Z" />
+            <path id="shape-90" class="pookkalam-cell cell-petal-swirl" data-cell-id="90" data-category="Petal 1 Inner Ribbon S2-S3" d="M 0.0,-110.0 A 110,110 0 0 1 109.4,-121.5 A 110,110 0 0 1 109.4,-98.5 A 110,110 0 0 0 0.0,-110.0 Z" />
+            <path id="shape-91" class="pookkalam-cell cell-petal-swirl" data-cell-id="91" data-category="Petal 1 Inner Ribbon S3-S4" d="M 0.0,-110.0 A 110,110 0 0 1 109.4,-98.5 A 110,110 0 0 1 104.61,-76.01 A 110,110 0 0 0 0.0,-110.0 Z" />
+            <path id="shape-92" class="pookkalam-cell cell-petal-swirl" data-cell-id="92" data-category="Petal 1 Inner Base S4-C2" d="M 0.0,-110.0 A 110,110 0 0 1 104.61,-76.01 A 110,110 0 0 1 95.26,-55.0 A 110,110 0 0 0 0.0,-110.0 Z" />
+            <path id="shape-93" class="pookkalam-cell cell-petal-swirl" data-cell-id="93" data-category="Petal 2 Outer Strip A4-A3" d="M 95.26,-165.0 C 173.42,-161.62 192.22,-56.26 177.01,-18.61 A 110,110 0 0 0 159.92,-33.99 C 175.13,-71.64 159.57,-153.62 95.26,-165.0 Z" />
+            <path id="shape-94" class="pookkalam-cell cell-petal-swirl" data-cell-id="94" data-category="Petal 2 Outer Strip A3-A2" d="M 95.26,-165.0 C 159.57,-153.62 175.13,-71.64 159.92,-33.99 A 110,110 0 0 0 140.0,-45.49 C 155.22,-83.14 145.71,-145.62 95.26,-165.0 Z" />
+            <path id="shape-95" class="pookkalam-cell cell-petal-swirl" data-cell-id="95" data-category="Petal 2 Outer Strip A2-A1" d="M 95.26,-165.0 C 145.71,-145.62 155.22,-83.14 140.0,-45.49 A 110,110 0 0 0 118.13,-52.59 C 133.34,-90.24 131.85,-137.62 95.26,-165.0 Z" />
+            <path id="shape-96" class="pookkalam-cell cell-petal-swirl" data-cell-id="96" data-category="Petal 2 Outer Base Junction" d="M 95.26,-165.0 C 131.85,-137.62 133.34,-90.24 118.13,-52.59 A 110,110 0 0 0 95.26,-55.0 A 110,110 0 0 0 95.26,-165.0 Z" />
+            <path id="shape-97" class="pookkalam-cell cell-petal-swirl" data-cell-id="97" data-category="Petal 2 Apex Cap" d="M 95.26,-165.0 C 173.42,-161.62 192.22,-56.26 177.01,-18.61 A 110,110 0 0 1 190.52,-0.0 A 110,110 0 0 0 95.26,-165.0 Z" />
+            <path id="shape-98" class="pookkalam-cell cell-petal-swirl" data-cell-id="98" data-category="Petal 2 Inner Ribbon R-S1" d="M 95.26,-55.0 A 110,110 0 0 1 190.52,-0.0 A 110,110 0 0 1 177.0,18.6 A 110,110 0 0 0 95.26,-55.0 Z" />
+            <path id="shape-99" class="pookkalam-cell cell-petal-swirl" data-cell-id="99" data-category="Petal 2 Inner Ribbon S1-S2" d="M 95.26,-55.0 A 110,110 0 0 1 177.0,18.6 A 110,110 0 0 1 159.92,33.99 A 110,110 0 0 0 95.26,-55.0 Z" />
+            <path id="shape-100" class="pookkalam-cell cell-petal-swirl" data-cell-id="100" data-category="Petal 2 Inner Ribbon S2-S3" d="M 95.26,-55.0 A 110,110 0 0 1 159.92,33.99 A 110,110 0 0 1 140.0,45.49 A 110,110 0 0 0 95.26,-55.0 Z" />
+            <path id="shape-101" class="pookkalam-cell cell-petal-swirl" data-cell-id="101" data-category="Petal 2 Inner Ribbon S3-S4" d="M 95.26,-55.0 A 110,110 0 0 1 140.0,45.49 A 110,110 0 0 1 118.13,52.59 A 110,110 0 0 0 95.26,-55.0 Z" />
+            <path id="shape-102" class="pookkalam-cell cell-petal-swirl" data-cell-id="102" data-category="Petal 2 Inner Base S4-C2" d="M 95.26,-55.0 A 110,110 0 0 1 118.13,52.59 A 110,110 0 0 1 95.26,55.0 A 110,110 0 0 0 95.26,-55.0 Z" />
+            <path id="shape-103" class="pookkalam-cell cell-petal-swirl" data-cell-id="103" data-category="Petal 3 Outer Strip A4-A3" d="M 190.52,0.0 C 226.68,69.38 144.83,138.34 104.62,143.99 A 110,110 0 0 0 109.4,121.5 C 149.61,115.85 212.83,61.38 190.52,0.0 Z" />
+            <path id="shape-104" class="pookkalam-cell cell-petal-swirl" data-cell-id="104" data-category="Petal 3 Outer Strip A3-A2" d="M 190.52,0.0 C 212.83,61.38 149.61,115.85 109.4,121.5 A 110,110 0 0 0 109.39,98.5 C 149.61,92.85 198.97,53.38 190.52,0.0 Z" />
+            <path id="shape-105" class="pookkalam-cell cell-petal-swirl" data-cell-id="105" data-category="Petal 3 Outer Strip A2-A1" d="M 190.52,0.0 C 198.97,53.38 149.61,92.85 109.39,98.5 A 110,110 0 0 0 104.61,76.01 C 144.82,70.36 185.11,45.38 190.52,0.0 Z" />
+            <path id="shape-106" class="pookkalam-cell cell-petal-swirl" data-cell-id="106" data-category="Petal 3 Outer Base Junction" d="M 190.52,0.0 C 185.11,45.38 144.82,70.36 104.61,76.01 A 110,110 0 0 0 95.26,55.0 A 110,110 0 0 0 190.52,0.0 Z" />
+            <path id="shape-107" class="pookkalam-cell cell-petal-swirl" data-cell-id="107" data-category="Petal 3 Apex Cap" d="M 190.52,0.0 C 226.68,69.38 144.83,138.34 104.62,143.99 A 110,110 0 0 1 95.26,165.0 A 110,110 0 0 0 190.52,0.0 Z" />
+            <path id="shape-108" class="pookkalam-cell cell-petal-swirl" data-cell-id="108" data-category="Petal 3 Inner Ribbon R-S1" d="M 95.26,55.0 A 110,110 0 0 1 95.26,165.0 A 110,110 0 0 1 72.39,162.59 A 110,110 0 0 0 95.26,55.0 Z" />
+            <path id="shape-109" class="pookkalam-cell cell-petal-swirl" data-cell-id="109" data-category="Petal 3 Inner Ribbon S1-S2" d="M 95.26,55.0 A 110,110 0 0 1 72.39,162.59 A 110,110 0 0 1 50.52,155.49 A 110,110 0 0 0 95.26,55.0 Z" />
+            <path id="shape-110" class="pookkalam-cell cell-petal-swirl" data-cell-id="110" data-category="Petal 3 Inner Ribbon S2-S3" d="M 95.26,55.0 A 110,110 0 0 1 50.52,155.49 A 110,110 0 0 1 30.6,143.99 A 110,110 0 0 0 95.26,55.0 Z" />
+            <path id="shape-111" class="pookkalam-cell cell-petal-swirl" data-cell-id="111" data-category="Petal 3 Inner Ribbon S3-S4" d="M 95.26,55.0 A 110,110 0 0 1 30.6,143.99 A 110,110 0 0 1 13.52,128.6 A 110,110 0 0 0 95.26,55.0 Z" />
+            <path id="shape-112" class="pookkalam-cell cell-petal-swirl" data-cell-id="112" data-category="Petal 3 Inner Base S4-C2" d="M 95.26,55.0 A 110,110 0 0 1 13.52,128.6 A 110,110 0 0 1 0.0,110.0 A 110,110 0 0 0 95.26,55.0 Z" />
+            <path id="shape-113" class="pookkalam-cell cell-petal-swirl" data-cell-id="113" data-category="Petal 4 Outer Strip A4-A3" d="M 95.26,165.0 C 53.26,231.0 -47.39,194.6 -72.39,162.6 A 110,110 0 0 0 -50.52,155.49 C -25.52,187.49 53.26,215.0 95.26,165.0 Z" />
+            <path id="shape-114" class="pookkalam-cell cell-petal-swirl" data-cell-id="114" data-category="Petal 4 Outer Strip A3-A2" d="M 95.26,165.0 C 53.26,215.0 -25.52,187.49 -50.52,155.49 A 110,110 0 0 0 -30.61,143.99 C -5.61,175.99 53.26,199.0 95.26,165.0 Z" />
+            <path id="shape-115" class="pookkalam-cell cell-petal-swirl" data-cell-id="115" data-category="Petal 4 Outer Strip A2-A1" d="M 95.26,165.0 C 53.26,199.0 -5.61,175.99 -30.61,143.99 A 110,110 0 0 0 -13.52,128.6 C 11.48,160.6 53.26,183.0 95.26,165.0 Z" />
+            <path id="shape-116" class="pookkalam-cell cell-petal-swirl" data-cell-id="116" data-category="Petal 4 Outer Base Junction" d="M 95.26,165.0 C 53.26,183.0 11.48,160.6 -13.52,128.6 A 110,110 0 0 0 0.0,110.0 A 110,110 0 0 0 95.26,165.0 Z" />
+            <path id="shape-117" class="pookkalam-cell cell-petal-swirl" data-cell-id="117" data-category="Petal 4 Apex Cap" d="M 95.26,165.0 C 53.26,231.0 -47.39,194.6 -72.39,162.6 A 110,110 0 0 1 -95.26,165.0 A 110,110 0 0 0 95.26,165.0 Z" />
+            <path id="shape-118" class="pookkalam-cell cell-petal-swirl" data-cell-id="118" data-category="Petal 4 Inner Ribbon R-S1" d="M 0.0,110.0 A 110,110 0 0 1 -95.26,165.0 A 110,110 0 0 1 -104.61,143.99 A 110,110 0 0 0 0.0,110.0 Z" />
+            <path id="shape-119" class="pookkalam-cell cell-petal-swirl" data-cell-id="119" data-category="Petal 4 Inner Ribbon S1-S2" d="M 0.0,110.0 A 110,110 0 0 1 -104.61,143.99 A 110,110 0 0 1 -109.4,121.5 A 110,110 0 0 0 0.0,110.0 Z" />
+            <path id="shape-120" class="pookkalam-cell cell-petal-swirl" data-cell-id="120" data-category="Petal 4 Inner Ribbon S2-S3" d="M 0.0,110.0 A 110,110 0 0 1 -109.4,121.5 A 110,110 0 0 1 -109.4,98.5 A 110,110 0 0 0 0.0,110.0 Z" />
+            <path id="shape-121" class="pookkalam-cell cell-petal-swirl" data-cell-id="121" data-category="Petal 4 Inner Ribbon S3-S4" d="M 0.0,110.0 A 110,110 0 0 1 -109.4,98.5 A 110,110 0 0 1 -104.61,76.01 A 110,110 0 0 0 0.0,110.0 Z" />
+            <path id="shape-122" class="pookkalam-cell cell-petal-swirl" data-cell-id="122" data-category="Petal 4 Inner Base S4-C2" d="M 0.0,110.0 A 110,110 0 0 1 -104.61,76.01 A 110,110 0 0 1 -95.26,55.0 A 110,110 0 0 0 0.0,110.0 Z" />
+            <path id="shape-123" class="pookkalam-cell cell-petal-swirl" data-cell-id="123" data-category="Petal 5 Outer Strip A4-A3" d="M -95.26,165.0 C -173.42,161.62 -192.22,56.26 -177.01,18.61 A 110,110 0 0 0 -159.92,33.99 C -175.13,71.64 -159.57,153.62 -95.26,165.0 Z" />
+            <path id="shape-124" class="pookkalam-cell cell-petal-swirl" data-cell-id="124" data-category="Petal 5 Outer Strip A3-A2" d="M -95.26,165.0 C -159.57,153.62 -175.13,71.64 -159.92,33.99 A 110,110 0 0 0 -140.0,45.49 C -155.22,83.14 -145.71,145.62 -95.26,165.0 Z" />
+            <path id="shape-125" class="pookkalam-cell cell-petal-swirl" data-cell-id="125" data-category="Petal 5 Outer Strip A2-A1" d="M -95.26,165.0 C -145.71,145.62 -155.22,83.14 -140.0,45.49 A 110,110 0 0 0 -118.13,52.59 C -133.34,90.24 -131.85,137.62 -95.26,165.0 Z" />
+            <path id="shape-126" class="pookkalam-cell cell-petal-swirl" data-cell-id="126" data-category="Petal 5 Outer Base Junction" d="M -95.26,165.0 C -131.85,137.62 -133.34,90.24 -118.13,52.59 A 110,110 0 0 0 -95.26,55.0 A 110,110 0 0 0 -95.26,165.0 Z" />
+            <path id="shape-127" class="pookkalam-cell cell-petal-swirl" data-cell-id="127" data-category="Petal 5 Apex Cap" d="M -95.26,165.0 C -173.42,161.62 -192.22,56.26 -177.01,18.61 A 110,110 0 0 1 -190.52,0.0 A 110,110 0 0 0 -95.26,165.0 Z" />
+            <path id="shape-128" class="pookkalam-cell cell-petal-swirl" data-cell-id="128" data-category="Petal 5 Inner Ribbon R-S1" d="M -95.26,55.0 A 110,110 0 0 1 -190.52,0.0 A 110,110 0 0 1 -177.0,-18.6 A 110,110 0 0 0 -95.26,55.0 Z" />
+            <path id="shape-129" class="pookkalam-cell cell-petal-swirl" data-cell-id="129" data-category="Petal 5 Inner Ribbon S1-S2" d="M -95.26,55.0 A 110,110 0 0 1 -177.0,-18.6 A 110,110 0 0 1 -159.92,-33.99 A 110,110 0 0 0 -95.26,55.0 Z" />
+            <path id="shape-130" class="pookkalam-cell cell-petal-swirl" data-cell-id="130" data-category="Petal 5 Inner Ribbon S2-S3" d="M -95.26,55.0 A 110,110 0 0 1 -159.92,-33.99 A 110,110 0 0 1 -140.0,-45.49 A 110,110 0 0 0 -95.26,55.0 Z" />
+            <path id="shape-131" class="pookkalam-cell cell-petal-swirl" data-cell-id="131" data-category="Petal 5 Inner Ribbon S3-S4" d="M -95.26,55.0 A 110,110 0 0 1 -140.0,-45.49 A 110,110 0 0 1 -118.13,-52.59 A 110,110 0 0 0 -95.26,55.0 Z" />
+            <path id="shape-132" class="pookkalam-cell cell-petal-swirl" data-cell-id="132" data-category="Petal 5 Inner Base S4-C2" d="M -95.26,55.0 A 110,110 0 0 1 -118.13,-52.59 A 110,110 0 0 1 -95.26,-55.0 A 110,110 0 0 0 -95.26,55.0 Z" />
+            <path id="shape-133" class="pookkalam-cell cell-petal-swirl" data-cell-id="133" data-category="Petal 6 Outer Strip A4-A3" d="M -190.52,-0.0 C -226.68,-69.38 -144.83,-138.34 -104.62,-143.99 A 110,110 0 0 0 -109.4,-121.5 C -149.61,-115.85 -212.83,-61.38 -190.52,-0.0 Z" />
+            <path id="shape-134" class="pookkalam-cell cell-petal-swirl" data-cell-id="134" data-category="Petal 6 Outer Strip A3-A2" d="M -190.52,-0.0 C -212.83,-61.38 -149.61,-115.85 -109.4,-121.5 A 110,110 0 0 0 -109.39,-98.5 C -149.61,-92.85 -198.97,-53.38 -190.52,-0.0 Z" />
+            <path id="shape-135" class="pookkalam-cell cell-petal-swirl" data-cell-id="135" data-category="Petal 6 Outer Strip A2-A1" d="M -190.52,-0.0 C -198.97,-53.38 -149.61,-92.85 -109.39,-98.5 A 110,110 0 0 0 -104.61,-76.01 C -144.82,-70.36 -185.11,-45.38 -190.52,-0.0 Z" />
+            <path id="shape-136" class="pookkalam-cell cell-petal-swirl" data-cell-id="136" data-category="Petal 6 Outer Base Junction" d="M -190.52,-0.0 C -185.11,-45.38 -144.82,-70.36 -104.61,-76.01 A 110,110 0 0 0 -95.26,-55.0 A 110,110 0 0 0 -190.52,-0.0 Z" />
+            <path id="shape-137" class="pookkalam-cell cell-petal-swirl" data-cell-id="137" data-category="Petal 6 Apex Cap" d="M -190.52,-0.0 C -226.68,-69.38 -144.83,-138.34 -104.62,-143.99 A 110,110 0 0 1 -95.26,-165.0 A 110,110 0 0 0 -190.52,-0.0 Z" />
+            <path id="shape-138" class="pookkalam-cell cell-petal-swirl" data-cell-id="138" data-category="Petal 6 Inner Ribbon R-S1" d="M -95.26,-55.0 A 110,110 0 0 1 -95.26,-165.0 A 110,110 0 0 1 -72.39,-162.59 A 110,110 0 0 0 -95.26,-55.0 Z" />
+            <path id="shape-139" class="pookkalam-cell cell-petal-swirl" data-cell-id="139" data-category="Petal 6 Inner Ribbon S1-S2" d="M -95.26,-55.0 A 110,110 0 0 1 -72.39,-162.59 A 110,110 0 0 1 -50.52,-155.49 A 110,110 0 0 0 -95.26,-55.0 Z" />
+            <path id="shape-140" class="pookkalam-cell cell-petal-swirl" data-cell-id="140" data-category="Petal 6 Inner Ribbon S2-S3" d="M -95.26,-55.0 A 110,110 0 0 1 -50.52,-155.49 A 110,110 0 0 1 -30.6,-143.99 A 110,110 0 0 0 -95.26,-55.0 Z" />
+            <path id="shape-141" class="pookkalam-cell cell-petal-swirl" data-cell-id="141" data-category="Petal 6 Inner Ribbon S3-S4" d="M -95.26,-55.0 A 110,110 0 0 1 -30.6,-143.99 A 110,110 0 0 1 -13.52,-128.6 A 110,110 0 0 0 -95.26,-55.0 Z" />
+            <path id="shape-142" class="pookkalam-cell cell-petal-swirl" data-cell-id="142" data-category="Petal 6 Inner Base S4-C2" d="M -95.26,-55.0 A 110,110 0 0 1 -13.52,-128.6 A 110,110 0 0 1 -0.0,-110.0 A 110,110 0 0 0 -95.26,-55.0 Z" />
+          </g>
+
+          <!-- Inter-Petal Outer Cusps (6 Shapes: 143–148, between Petals and Ring 1) -->
+          <g id="group-outer-cusp-shapes">
+            <path id="shape-143" class="pookkalam-cell cell-outer-cusp" data-cell-id="143" data-category="Outer Cusp R1-T6-T1 (Petals 6 & 1)" d="M -95.26,-165.0 A 110,110 0 0 0 -190.53,-110.0 A 220,220 0 0 1 0.0,-220.0 A 110,110 0 0 0 -95.26,-165.0 Z" />
+            <path id="shape-144" class="pookkalam-cell cell-outer-cusp" data-cell-id="144" data-category="Outer Cusp R2-T1-T2 (Petals 1 & 2)" d="M 95.26,-165.0 A 110,110 0 0 0 -0.0,-220.0 A 220,220 0 0 1 190.53,-110.0 A 110,110 0 0 0 95.26,-165.0 Z" />
+            <path id="shape-145" class="pookkalam-cell cell-outer-cusp" data-cell-id="145" data-category="Outer Cusp R3-T2-T3 (Petals 2 & 3)" d="M 190.52,0.0 A 110,110 0 0 0 190.53,-110.0 A 220,220 0 0 1 190.53,110.0 A 110,110 0 0 0 190.52,0.0 Z" />
+            <path id="shape-146" class="pookkalam-cell cell-outer-cusp" data-cell-id="146" data-category="Outer Cusp R4-T3-T4 (Petals 3 & 4)" d="M 95.26,165.0 A 110,110 0 0 0 190.53,110.0 A 220,220 0 0 1 0.0,220.0 A 110,110 0 0 0 95.26,165.0 Z" />
+            <path id="shape-147" class="pookkalam-cell cell-outer-cusp" data-cell-id="147" data-category="Outer Cusp R5-T4-T5 (Petals 4 & 5)" d="M -95.26,165.0 A 110,110 0 0 0 0.0,220.0 A 220,220 0 0 1 -190.53,110.0 A 110,110 0 0 0 -95.26,165.0 Z" />
+            <path id="shape-148" class="pookkalam-cell cell-outer-cusp" data-cell-id="148" data-category="Outer Cusp R6-T5-T6 (Petals 5 & 6)" d="M -190.52,-0.0 A 110,110 0 0 0 -190.53,110.0 A 220,220 0 0 1 -190.53,-110.0 A 110,110 0 0 0 -190.52,-0.0 Z" />
+          </g>
+        </g>
+
+        <!-- 2. MASTER PURE VECTOR STROKE DRAWING LAYER -->
+        <g id="pookkalam-strokes-layer">
+          <!-- 1. Concentric Guide Rings -->
+          <g id="group-concentric-rings">
+            <circle class="outer-ring ring-1" cx="0" cy="0" r="220" />
+            <circle class="outer-ring ring-2" cx="0" cy="0" r="240" />
+            <circle class="outer-ring ring-3" cx="0" cy="0" r="260" />
+            <circle class="outer-ring ring-4" cx="0" cy="0" r="280" />
+            <circle class="outer-ring ring-5" cx="0" cy="0" r="300" />
+          </g>
+
+          <!-- 2. Radial Divider Spokes -->
+          <g id="group-radial-dividers">
+            <use href="#radial-spoke" />
+            <use href="#radial-spoke" transform="rotate(30)" />
+            <use href="#radial-spoke" transform="rotate(60)" />
+            <use href="#radial-spoke" transform="rotate(90)" />
+            <use href="#radial-spoke" transform="rotate(120)" />
+            <use href="#radial-spoke" transform="rotate(150)" />
+            <use href="#radial-spoke" transform="rotate(180)" />
+            <use href="#radial-spoke" transform="rotate(210)" />
+            <use href="#radial-spoke" transform="rotate(240)" />
+            <use href="#radial-spoke" transform="rotate(270)" />
+            <use href="#radial-spoke" transform="rotate(300)" />
+            <use href="#radial-spoke" transform="rotate(330)" />
+          </g>
+
+          <!-- 3. Petals & Continuous Boundary Arcs -->
+          <g id="group-petals">
+            <!-- 6 Continuous Petal Main Boundaries (C6 to S4) (Permanent) -->
+            <g id="subgroup-petal-boundaries-main">
+              <use href="#petal-boundary-main" />
+              <use href="#petal-boundary-main" transform="rotate(60)" />
+              <use href="#petal-boundary-main" transform="rotate(120)" />
+              <use href="#petal-boundary-main" transform="rotate(180)" />
+              <use href="#petal-boundary-main" transform="rotate(240)" />
+              <use href="#petal-boundary-main" transform="rotate(300)" />
+            </g>
+
+            <!-- 6 Base Boundary Lines C–S (C1-S24, C2-S4, C3-S8, C4-S12, C5-S16, C6-S20) (ONLY lines to toggle) -->
+            <g id="group-boundary-base-cs-lines" class="swirl-cs-group">
+              <use href="#petal-boundary-base-cs" />
+              <use href="#petal-boundary-base-cs" transform="rotate(60)" />
+              <use href="#petal-boundary-base-cs" transform="rotate(120)" />
+              <use href="#petal-boundary-base-cs" transform="rotate(180)" />
+              <use href="#petal-boundary-base-cs" transform="rotate(240)" />
+              <use href="#petal-boundary-base-cs" transform="rotate(300)" />
+            </g>
+
+            <!-- Set A: Outer Swirls (Permanent) -->
+            <g id="subgroup-outer-swirls">
+              <use href="#petal-swirl-R" />
+              <use href="#petal-swirl-R" transform="rotate(60)" />
+              <use href="#petal-swirl-R" transform="rotate(120)" />
+              <use href="#petal-swirl-R" transform="rotate(180)" />
+              <use href="#petal-swirl-R" transform="rotate(240)" />
+              <use href="#petal-swirl-R" transform="rotate(300)" />
+            </g>
+
+            <!-- Set B: Inner Swirls 1 to 4 (Permanent: includes C1-S4, C6-S24, C2-S8, C3-S12, C4-S16, C5-S20) -->
+            <g id="subgroup-inner-swirls">
+              <use href="#petal-swirl-C" />
+              <use href="#petal-swirl-C" transform="rotate(60)" />
+              <use href="#petal-swirl-C" transform="rotate(120)" />
+              <use href="#petal-swirl-C" transform="rotate(180)" />
+              <use href="#petal-swirl-C" transform="rotate(240)" />
+              <use href="#petal-swirl-C" transform="rotate(300)" />
+            </g>
+          </g>
+
+          <!-- 4. Central Mandala -->
+          <g id="group-central-mandala">
+            <!-- 30 Equidistant Spiral Blades -->
+            <g id="subgroup-spiral-blades" clip-path="url(#central-circle-clip)">
+              <use href="#spiral-blade-unit" />
+              <use href="#spiral-blade-unit" transform="rotate(12)" />
+              <use href="#spiral-blade-unit" transform="rotate(24)" />
+              <use href="#spiral-blade-unit" transform="rotate(36)" />
+              <use href="#spiral-blade-unit" transform="rotate(48)" />
+              <use href="#spiral-blade-unit" transform="rotate(60)" />
+              <use href="#spiral-blade-unit" transform="rotate(72)" />
+              <use href="#spiral-blade-unit" transform="rotate(84)" />
+              <use href="#spiral-blade-unit" transform="rotate(96)" />
+              <use href="#spiral-blade-unit" transform="rotate(108)" />
+              <use href="#spiral-blade-unit" transform="rotate(120)" />
+              <use href="#spiral-blade-unit" transform="rotate(132)" />
+              <use href="#spiral-blade-unit" transform="rotate(144)" />
+              <use href="#spiral-blade-unit" transform="rotate(156)" />
+              <use href="#spiral-blade-unit" transform="rotate(168)" />
+              <use href="#spiral-blade-unit" transform="rotate(180)" />
+              <use href="#spiral-blade-unit" transform="rotate(192)" />
+              <use href="#spiral-blade-unit" transform="rotate(204)" />
+              <use href="#spiral-blade-unit" transform="rotate(216)" />
+              <use href="#spiral-blade-unit" transform="rotate(228)" />
+              <use href="#spiral-blade-unit" transform="rotate(240)" />
+              <use href="#spiral-blade-unit" transform="rotate(252)" />
+              <use href="#spiral-blade-unit" transform="rotate(264)" />
+              <use href="#spiral-blade-unit" transform="rotate(276)" />
+              <use href="#spiral-blade-unit" transform="rotate(288)" />
+              <use href="#spiral-blade-unit" transform="rotate(300)" />
+              <use href="#spiral-blade-unit" transform="rotate(312)" />
+              <use href="#spiral-blade-unit" transform="rotate(324)" />
+              <use href="#spiral-blade-unit" transform="rotate(336)" />
+              <use href="#spiral-blade-unit" transform="rotate(348)" />
+            </g>
+
+            <!-- Base Circle Perimeter Line -->
+            <circle class="central-circle-perimeter" cx="0" cy="0" r="110" />
+
+            <!-- Inner Swirl Origin Circle (r=38px) -->
+            <circle class="central-swirl-origin-circle" cx="0" cy="0" r="38" />
+
+            <!-- Inner Double Collar Ring -->
+            <g id="subgroup-central-collar">
+              <circle class="center-collar-outer" cx="0" cy="0" r="22" />
+              <circle class="center-collar-inner" cx="0" cy="0" r="18.5" />
+            </g>
+
+            <!-- Center Compass Point Dot -->
+            <circle class="center-compass-dot" cx="0" cy="0" r="2.5" />
+          </g>
+        </g>
+
+          <!-- 4. Shape Numbers Layer (148 Shapes, Toggleable) -->
+          <g id="group-shape-numbers" class="shape-numbers-layer">
+            <text class="shape-num-label shape-num-lg" x="58.89" y="-219.77" data-shape-ref="shape-1">1</text>
+            <text class="shape-num-label shape-num-lg" x="160.88" y="-160.88" data-shape-ref="shape-2">2</text>
+            <text class="shape-num-label shape-num-lg" x="219.77" y="-58.89" data-shape-ref="shape-3">3</text>
+            <text class="shape-num-label shape-num-lg" x="219.77" y="58.89" data-shape-ref="shape-4">4</text>
+            <text class="shape-num-label shape-num-lg" x="160.88" y="160.88" data-shape-ref="shape-5">5</text>
+            <text class="shape-num-label shape-num-lg" x="58.89" y="219.77" data-shape-ref="shape-6">6</text>
+            <text class="shape-num-label shape-num-lg" x="-58.89" y="219.77" data-shape-ref="shape-7">7</text>
+            <text class="shape-num-label shape-num-lg" x="-160.88" y="160.88" data-shape-ref="shape-8">8</text>
+            <text class="shape-num-label shape-num-lg" x="-219.77" y="58.89" data-shape-ref="shape-9">9</text>
+            <text class="shape-num-label shape-num-lg" x="-219.77" y="-58.89" data-shape-ref="shape-10">10</text>
+            <text class="shape-num-label shape-num-lg" x="-160.88" y="-160.88" data-shape-ref="shape-11">11</text>
+            <text class="shape-num-label shape-num-lg" x="-58.89" y="-219.77" data-shape-ref="shape-12">12</text>
+            <text class="shape-num-label shape-num-lg" x="64.0" y="-238.86" data-shape-ref="shape-13">13</text>
+            <text class="shape-num-label shape-num-lg" x="174.85" y="-174.85" data-shape-ref="shape-14">14</text>
+            <text class="shape-num-label shape-num-lg" x="238.86" y="-64.0" data-shape-ref="shape-15">15</text>
+            <text class="shape-num-label shape-num-lg" x="238.86" y="64.0" data-shape-ref="shape-16">16</text>
+            <text class="shape-num-label shape-num-lg" x="174.85" y="174.85" data-shape-ref="shape-17">17</text>
+            <text class="shape-num-label shape-num-lg" x="64.0" y="238.86" data-shape-ref="shape-18">18</text>
+            <text class="shape-num-label shape-num-lg" x="-64.0" y="238.86" data-shape-ref="shape-19">19</text>
+            <text class="shape-num-label shape-num-lg" x="-174.85" y="174.85" data-shape-ref="shape-20">20</text>
+            <text class="shape-num-label shape-num-lg" x="-238.86" y="64.0" data-shape-ref="shape-21">21</text>
+            <text class="shape-num-label shape-num-lg" x="-238.86" y="-64.0" data-shape-ref="shape-22">22</text>
+            <text class="shape-num-label shape-num-lg" x="-174.85" y="-174.85" data-shape-ref="shape-23">23</text>
+            <text class="shape-num-label shape-num-lg" x="-64.0" y="-238.86" data-shape-ref="shape-24">24</text>
+            <text class="shape-num-label shape-num-lg" x="69.11" y="-257.94" data-shape-ref="shape-25">25</text>
+            <text class="shape-num-label shape-num-lg" x="188.83" y="-188.83" data-shape-ref="shape-26">26</text>
+            <text class="shape-num-label shape-num-lg" x="257.94" y="-69.11" data-shape-ref="shape-27">27</text>
+            <text class="shape-num-label shape-num-lg" x="257.94" y="69.11" data-shape-ref="shape-28">28</text>
+            <text class="shape-num-label shape-num-lg" x="188.83" y="188.83" data-shape-ref="shape-29">29</text>
+            <text class="shape-num-label shape-num-lg" x="69.11" y="257.94" data-shape-ref="shape-30">30</text>
+            <text class="shape-num-label shape-num-lg" x="-69.11" y="257.94" data-shape-ref="shape-31">31</text>
+            <text class="shape-num-label shape-num-lg" x="-188.83" y="188.83" data-shape-ref="shape-32">32</text>
+            <text class="shape-num-label shape-num-lg" x="-257.94" y="69.11" data-shape-ref="shape-33">33</text>
+            <text class="shape-num-label shape-num-lg" x="-257.94" y="-69.11" data-shape-ref="shape-34">34</text>
+            <text class="shape-num-label shape-num-lg" x="-188.83" y="-188.83" data-shape-ref="shape-35">35</text>
+            <text class="shape-num-label shape-num-lg" x="-69.11" y="-257.94" data-shape-ref="shape-36">36</text>
+            <text class="shape-num-label shape-num-lg" x="74.23" y="-277.03" data-shape-ref="shape-37">37</text>
+            <text class="shape-num-label shape-num-lg" x="202.8" y="-202.8" data-shape-ref="shape-38">38</text>
+            <text class="shape-num-label shape-num-lg" x="277.03" y="-74.23" data-shape-ref="shape-39">39</text>
+            <text class="shape-num-label shape-num-lg" x="277.03" y="74.23" data-shape-ref="shape-40">40</text>
+            <text class="shape-num-label shape-num-lg" x="202.8" y="202.8" data-shape-ref="shape-41">41</text>
+            <text class="shape-num-label shape-num-lg" x="74.23" y="277.03" data-shape-ref="shape-42">42</text>
+            <text class="shape-num-label shape-num-lg" x="-74.23" y="277.03" data-shape-ref="shape-43">43</text>
+            <text class="shape-num-label shape-num-lg" x="-202.8" y="202.8" data-shape-ref="shape-44">44</text>
+            <text class="shape-num-label shape-num-lg" x="-277.03" y="74.23" data-shape-ref="shape-45">45</text>
+            <text class="shape-num-label shape-num-lg" x="-277.03" y="-74.23" data-shape-ref="shape-46">46</text>
+            <text class="shape-num-label shape-num-lg" x="-202.8" y="-202.8" data-shape-ref="shape-47">47</text>
+            <text class="shape-num-label shape-num-lg" x="-74.23" y="-277.03" data-shape-ref="shape-48">48</text>
+            <text class="shape-num-label shape-num-md" x="7.19" y="-77.28" data-shape-ref="shape-49">49</text>
+            <text class="shape-num-label shape-num-md" x="23.1" y="-74.09" data-shape-ref="shape-50">50</text>
+            <text class="shape-num-label shape-num-md" x="38.0" y="-67.68" data-shape-ref="shape-51">51</text>
+            <text class="shape-num-label shape-num-md" x="51.24" y="-58.29" data-shape-ref="shape-52">52</text>
+            <text class="shape-num-label shape-num-md" x="62.24" y="-46.37" data-shape-ref="shape-53">53</text>
+            <text class="shape-num-label shape-num-md" x="70.52" y="-32.42" data-shape-ref="shape-54">54</text>
+            <text class="shape-num-label shape-num-md" x="75.72" y="-17.04" data-shape-ref="shape-55">55</text>
+            <text class="shape-num-label shape-num-md" x="77.61" y="-0.93" data-shape-ref="shape-56">56</text>
+            <text class="shape-num-label shape-num-md" x="76.11" y="15.23" data-shape-ref="shape-57">57</text>
+            <text class="shape-num-label shape-num-md" x="71.28" y="30.72" data-shape-ref="shape-58">58</text>
+            <text class="shape-num-label shape-num-md" x="63.34" y="44.86" data-shape-ref="shape-59">59</text>
+            <text class="shape-num-label shape-num-md" x="52.62" y="57.05" data-shape-ref="shape-60">60</text>
+            <text class="shape-num-label shape-num-md" x="39.61" y="66.75" data-shape-ref="shape-61">61</text>
+            <text class="shape-num-label shape-num-md" x="24.87" y="73.53" data-shape-ref="shape-62">62</text>
+            <text class="shape-num-label shape-num-md" x="9.03" y="77.09" data-shape-ref="shape-63">63</text>
+            <text class="shape-num-label shape-num-md" x="-7.19" y="77.28" data-shape-ref="shape-64">64</text>
+            <text class="shape-num-label shape-num-md" x="-23.1" y="74.09" data-shape-ref="shape-65">65</text>
+            <text class="shape-num-label shape-num-md" x="-38.0" y="67.68" data-shape-ref="shape-66">66</text>
+            <text class="shape-num-label shape-num-md" x="-51.24" y="58.29" data-shape-ref="shape-67">67</text>
+            <text class="shape-num-label shape-num-md" x="-62.24" y="46.37" data-shape-ref="shape-68">68</text>
+            <text class="shape-num-label shape-num-md" x="-70.52" y="32.42" data-shape-ref="shape-69">69</text>
+            <text class="shape-num-label shape-num-md" x="-75.72" y="17.04" data-shape-ref="shape-70">70</text>
+            <text class="shape-num-label shape-num-md" x="-77.61" y="0.93" data-shape-ref="shape-71">71</text>
+            <text class="shape-num-label shape-num-md" x="-76.11" y="-15.23" data-shape-ref="shape-72">72</text>
+            <text class="shape-num-label shape-num-md" x="-71.28" y="-30.72" data-shape-ref="shape-73">73</text>
+            <text class="shape-num-label shape-num-md" x="-63.34" y="-44.86" data-shape-ref="shape-74">74</text>
+            <text class="shape-num-label shape-num-md" x="-52.62" y="-57.05" data-shape-ref="shape-75">75</text>
+            <text class="shape-num-label shape-num-md" x="-39.61" y="-66.75" data-shape-ref="shape-76">76</text>
+            <text class="shape-num-label shape-num-md" x="-24.87" y="-73.53" data-shape-ref="shape-77">77</text>
+            <text class="shape-num-label shape-num-md" x="-9.03" y="-77.09" data-shape-ref="shape-78">78</text>
+            <text class="shape-num-label shape-num-xs" x="0.0" y="0.0" data-shape-ref="shape-79">79</text>
+            <text class="shape-num-label shape-num-xs" x="0.0" y="-10.5" data-shape-ref="shape-80">80</text>
+            <text class="shape-num-label shape-num-xs" x="0.0" y="-20.25" data-shape-ref="shape-81">81</text>
+            <text class="shape-num-label shape-num-xs" x="0.0" y="-30.0" data-shape-ref="shape-82">82</text>
+            <text class="shape-num-label shape-num-md" x="37.57" y="-178.55" data-shape-ref="shape-83">83</text>
+            <text class="shape-num-label shape-num-md" x="-4.41" y="-174.14" data-shape-ref="shape-84">84</text>
+            <text class="shape-num-label shape-num-md" x="-16.55" y="-161.73" data-shape-ref="shape-85">85</text>
+            <text class="shape-num-label shape-num-lg" x="-27.74" y="-147.95" data-shape-ref="shape-86">86</text>
+            <text class="shape-num-label shape-num-lg" x="22.19" y="-197.56" data-shape-ref="shape-87">87</text>
+            <text class="shape-num-label shape-num-sm" x="61.85" y="-148.41" data-shape-ref="shape-88">88</text>
+            <text class="shape-num-label shape-num-sm" x="68.49" y="-134.71" data-shape-ref="shape-89">89</text>
+            <text class="shape-num-label shape-num-sm" x="72.13" y="-119.93" data-shape-ref="shape-90">90</text>
+            <text class="shape-num-label shape-num-sm" x="72.62" y="-104.72" data-shape-ref="shape-91">91</text>
+            <text class="shape-num-label shape-num-sm" x="69.93" y="-89.74" data-shape-ref="shape-92">92</text>
+            <text class="shape-num-label shape-num-md" x="168.91" y="-92.24" data-shape-ref="shape-93">93</text>
+            <text class="shape-num-label shape-num-md" x="148.6" y="-90.89" data-shape-ref="shape-94">94</text>
+            <text class="shape-num-label shape-num-md" x="131.78" y="-95.2" data-shape-ref="shape-95">95</text>
+            <text class="shape-num-label shape-num-lg" x="114.26" y="-98.0" data-shape-ref="shape-96">96</text>
+            <text class="shape-num-label shape-num-lg" x="182.18" y="-79.56" data-shape-ref="shape-97">97</text>
+            <text class="shape-num-label shape-num-sm" x="159.45" y="-20.64" data-shape-ref="shape-98">98</text>
+            <text class="shape-num-label shape-num-sm" x="150.9" y="-8.05" data-shape-ref="shape-99">99</text>
+            <text class="shape-num-label shape-num-sm" x="139.93" y="2.5" data-shape-ref="shape-100">100</text>
+            <text class="shape-num-label shape-num-sm" x="127.0" y="10.53" data-shape-ref="shape-101">101</text>
+            <text class="shape-num-label shape-num-sm" x="112.68" y="15.69" data-shape-ref="shape-102">102</text>
+            <text class="shape-num-label shape-num-md" x="185.64" y="72.14" data-shape-ref="shape-103">103</text>
+            <text class="shape-num-label shape-num-md" x="153.01" y="83.25" data-shape-ref="shape-104">104</text>
+            <text class="shape-num-label shape-num-md" x="148.34" y="66.53" data-shape-ref="shape-105">105</text>
+            <text class="shape-num-label shape-num-lg" x="142.0" y="49.96" data-shape-ref="shape-106">106</text>
+            <text class="shape-num-label shape-num-lg" x="159.99" y="118.0" data-shape-ref="shape-107">107</text>
+            <text class="shape-num-label shape-num-sm" x="97.6" y="127.77" data-shape-ref="shape-108">108</text>
+            <text class="shape-num-label shape-num-sm" x="82.42" y="126.67" data-shape-ref="shape-109">109</text>
+            <text class="shape-num-label shape-num-sm" x="67.8" y="122.43" data-shape-ref="shape-110">110</text>
+            <text class="shape-num-label shape-num-sm" x="54.38" y="115.25" data-shape-ref="shape-111">111</text>
+            <text class="shape-num-label shape-num-sm" x="42.75" y="105.43" data-shape-ref="shape-112">112</text>
+            <text class="shape-num-label shape-num-md" x="-37.57" y="178.55" data-shape-ref="shape-113">113</text>
+            <text class="shape-num-label shape-num-md" x="4.41" y="174.14" data-shape-ref="shape-114">114</text>
+            <text class="shape-num-label shape-num-md" x="16.55" y="161.73" data-shape-ref="shape-115">115</text>
+            <text class="shape-num-label shape-num-lg" x="27.74" y="147.95" data-shape-ref="shape-116">116</text>
+            <text class="shape-num-label shape-num-lg" x="-22.19" y="197.56" data-shape-ref="shape-117">117</text>
+            <text class="shape-num-label shape-num-sm" x="-61.85" y="148.41" data-shape-ref="shape-118">118</text>
+            <text class="shape-num-label shape-num-sm" x="-68.49" y="134.71" data-shape-ref="shape-119">119</text>
+            <text class="shape-num-label shape-num-sm" x="-72.13" y="119.93" data-shape-ref="shape-120">120</text>
+            <text class="shape-num-label shape-num-sm" x="-72.62" y="104.72" data-shape-ref="shape-121">121</text>
+            <text class="shape-num-label shape-num-sm" x="-69.93" y="89.74" data-shape-ref="shape-122">122</text>
+            <text class="shape-num-label shape-num-md" x="-168.91" y="92.24" data-shape-ref="shape-123">123</text>
+            <text class="shape-num-label shape-num-md" x="-148.6" y="90.89" data-shape-ref="shape-124">124</text>
+            <text class="shape-num-label shape-num-md" x="-131.78" y="95.2" data-shape-ref="shape-125">125</text>
+            <text class="shape-num-label shape-num-lg" x="-114.26" y="98.0" data-shape-ref="shape-126">126</text>
+            <text class="shape-num-label shape-num-lg" x="-182.18" y="79.56" data-shape-ref="shape-127">127</text>
+            <text class="shape-num-label shape-num-sm" x="-159.45" y="20.64" data-shape-ref="shape-128">128</text>
+            <text class="shape-num-label shape-num-sm" x="-150.9" y="8.05" data-shape-ref="shape-129">129</text>
+            <text class="shape-num-label shape-num-sm" x="-139.93" y="-2.5" data-shape-ref="shape-130">130</text>
+            <text class="shape-num-label shape-num-sm" x="-127.0" y="-10.53" data-shape-ref="shape-131">131</text>
+            <text class="shape-num-label shape-num-sm" x="-112.68" y="-15.69" data-shape-ref="shape-132">132</text>
+            <text class="shape-num-label shape-num-md" x="-185.64" y="-72.14" data-shape-ref="shape-133">133</text>
+            <text class="shape-num-label shape-num-md" x="-153.01" y="-83.25" data-shape-ref="shape-134">134</text>
+            <text class="shape-num-label shape-num-md" x="-148.34" y="-66.53" data-shape-ref="shape-135">135</text>
+            <text class="shape-num-label shape-num-lg" x="-142.0" y="-49.96" data-shape-ref="shape-136">136</text>
+            <text class="shape-num-label shape-num-lg" x="-159.99" y="-118.0" data-shape-ref="shape-137">137</text>
+            <text class="shape-num-label shape-num-sm" x="-97.6" y="-127.77" data-shape-ref="shape-138">138</text>
+            <text class="shape-num-label shape-num-sm" x="-82.42" y="-126.67" data-shape-ref="shape-139">139</text>
+            <text class="shape-num-label shape-num-sm" x="-67.8" y="-122.43" data-shape-ref="shape-140">140</text>
+            <text class="shape-num-label shape-num-sm" x="-54.38" y="-115.25" data-shape-ref="shape-141">141</text>
+            <text class="shape-num-label shape-num-sm" x="-42.75" y="-105.43" data-shape-ref="shape-142">142</text>
+            <text class="shape-num-label shape-num-md" x="-104.16" y="-180.4" data-shape-ref="shape-143">143</text>
+            <text class="shape-num-label shape-num-md" x="104.15" y="-180.41" data-shape-ref="shape-144">144</text>
+            <text class="shape-num-label shape-num-md" x="208.31" y="-0.01" data-shape-ref="shape-145">145</text>
+            <text class="shape-num-label shape-num-md" x="104.16" y="180.4" data-shape-ref="shape-146">146</text>
+            <text class="shape-num-label shape-num-md" x="-104.15" y="180.41" data-shape-ref="shape-147">147</text>
+            <text class="shape-num-label shape-num-md" x="-208.31" y="0.01" data-shape-ref="shape-148">148</text>
+          </g>
+
+          <!-- 3. Landmarks Layer (Toggleable) -->
+          <g id="group-named-intersections" class="landmarks-layer">
+            <!-- 1. Center Origin (O) -->
+            <g class="marker-group marker-green">
+              <circle class="intersection-dot dot-origin" cx="0" cy="0" r="4.5" />
+              <text class="dot-label" x="0" y="-12">O</text>
+            </g>
+
+            <!-- 2. Central Cusps (C1 - C6) -->
+            <g class="marker-group marker-blue">
+              <circle class="intersection-dot" cx="0" cy="-110" r="4.5" />
+              <text class="dot-label" x="0" y="-124">C1</text>
+              <circle class="intersection-dot" cx="95.26" cy="-55" r="4.5" />
+              <text class="dot-label" x="109.26" y="-63">C2</text>
+              <circle class="intersection-dot" cx="95.26" cy="55" r="4.5" />
+              <text class="dot-label" x="109.26" y="63">C3</text>
+              <circle class="intersection-dot" cx="0" cy="110" r="4.5" />
+              <text class="dot-label" x="0" y="124">C4</text>
+              <circle class="intersection-dot" cx="-95.26" cy="55" r="4.5" />
+              <text class="dot-label" x="-109.26" y="63">C5</text>
+              <circle class="intersection-dot" cx="-95.26" cy="-55" r="4.5" />
+              <text class="dot-label" x="-109.26" y="-63">C6</text>
+            </g>
+
+            <!-- 3. Petal Crossings (R1 - R6) -->
+            <g class="marker-group marker-red">
+              <circle class="intersection-dot" cx="-95.26" cy="-165" r="4.5" />
+              <text class="dot-label" x="-109.26" y="-179">R1</text>
+              <circle class="intersection-dot" cx="95.26" cy="-165" r="4.5" />
+              <text class="dot-label" x="109.26" y="-179">R2</text>
+              <circle class="intersection-dot" cx="190.53" cy="0" r="4.5" />
+              <text class="dot-label" x="206.53" y="0">R3</text>
+              <circle class="intersection-dot" cx="95.26" cy="165" r="4.5" />
+              <text class="dot-label" x="109.26" y="179">R4</text>
+              <circle class="intersection-dot" cx="-95.26" cy="165" r="4.5" />
+              <text class="dot-label" x="-109.26" y="179">R5</text>
+              <circle class="intersection-dot" cx="-190.53" cy="0" r="4.5" />
+              <text class="dot-label" x="-206.53" y="0">R6</text>
+            </g>
+
+            <!-- 4. Outer Petal Tips / Apexes (T1 - T6) -->
+            <g class="marker-group marker-orange">
+              <circle class="intersection-dot" cx="0" cy="-220" r="4.5" />
+              <text class="dot-label" x="0" y="-234">T1</text>
+              <circle class="intersection-dot" cx="190.53" cy="-110" r="4.5" />
+              <text class="dot-label" x="204.53" y="-118">T2</text>
+              <circle class="intersection-dot" cx="190.53" cy="110" r="4.5" />
+              <text class="dot-label" x="204.53" y="118">T3</text>
+              <circle class="intersection-dot" cx="0" cy="220" r="4.5" />
+              <text class="dot-label" x="0" y="234">T4</text>
+              <circle class="intersection-dot" cx="-190.53" cy="110" r="4.5" />
+              <text class="dot-label" x="-204.53" y="118">T5</text>
+              <circle class="intersection-dot" cx="-190.53" cy="-110" r="4.5" />
+              <text class="dot-label" x="-204.53" y="-118">T6</text>
+            </g>
+
+            <!-- 5. Inner Swirl Endings on Petal Boundaries (S1 - S24) -->
+            <g class="marker-group marker-purple">
+              <circle class="intersection-dot" cx="104.61" cy="-143.99" r="3.5" />
+              <text class="dot-label dot-label-sm" x="111.71" y="-153.69">S1</text>
+              <circle class="intersection-dot" cx="109.40" cy="-121.50" r="3.5" />
+              <text class="dot-label dot-label-sm" x="117.40" y="-130.40">S2</text>
+              <circle class="intersection-dot" cx="109.40" cy="-98.50" r="3.5" />
+              <text class="dot-label dot-label-sm" x="118.30" y="-106.50">S3</text>
+              <circle class="intersection-dot" cx="104.61" cy="-76.01" r="3.5" />
+              <text class="dot-label dot-label-sm" x="114.31" y="-83.11">S4</text>
+              <circle class="intersection-dot" cx="177.00" cy="18.60" r="3.5" />
+              <text class="dot-label dot-label-sm" x="188.90" y="19.90">S5</text>
+              <circle class="intersection-dot" cx="159.92" cy="33.99" r="3.5" />
+              <text class="dot-label dot-label-sm" x="171.62" y="36.49">S6</text>
+              <circle class="intersection-dot" cx="140.00" cy="45.49" r="3.5" />
+              <text class="dot-label dot-label-sm" x="151.40" y="49.19">S7</text>
+              <circle class="intersection-dot" cx="118.13" cy="52.59" r="3.5" />
+              <text class="dot-label dot-label-sm" x="129.13" y="57.49">S8</text>
+              <circle class="intersection-dot" cx="72.39" cy="162.59" r="3.5" />
+              <text class="dot-label dot-label-sm" x="77.29" y="173.59">S9</text>
+              <circle class="intersection-dot" cx="50.52" cy="155.49" r="3.5" />
+              <text class="dot-label dot-label-sm" x="54.22" y="166.89">S10</text>
+              <circle class="intersection-dot" cx="30.60" cy="143.99" r="3.5" />
+              <text class="dot-label dot-label-sm" x="33.10" y="155.69">S11</text>
+              <circle class="intersection-dot" cx="13.52" cy="128.60" r="3.5" />
+              <text class="dot-label dot-label-sm" x="14.82" y="140.50">S12</text>
+              <circle class="intersection-dot" cx="-104.61" cy="143.99" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-111.71" y="153.69">S13</text>
+              <circle class="intersection-dot" cx="-109.40" cy="121.50" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-117.40" y="130.40">S14</text>
+              <circle class="intersection-dot" cx="-109.40" cy="98.50" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-118.30" y="106.50">S15</text>
+              <circle class="intersection-dot" cx="-104.61" cy="76.01" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-114.31" y="83.11">S16</text>
+              <circle class="intersection-dot" cx="-177.00" cy="-18.60" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-188.90" y="-19.90">S17</text>
+              <circle class="intersection-dot" cx="-159.92" cy="-33.99" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-171.62" y="-36.49">S18</text>
+              <circle class="intersection-dot" cx="-140.00" cy="-45.49" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-151.40" y="-49.19">S19</text>
+              <circle class="intersection-dot" cx="-118.13" cy="-52.59" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-129.13" y="-57.49">S20</text>
+              <circle class="intersection-dot" cx="-72.39" cy="-162.59" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-77.29" y="-173.59">S21</text>
+              <circle class="intersection-dot" cx="-50.52" cy="-155.49" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-54.22" y="-166.89">S22</text>
+              <circle class="intersection-dot" cx="-30.60" cy="-143.99" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-33.10" y="-155.69">S23</text>
+              <circle class="intersection-dot" cx="-13.52" cy="-128.60" r="3.5" />
+              <text class="dot-label dot-label-sm" x="-14.82" y="-140.50">S24</text>
+            </g>
+
+            <!-- 6. Outer Swirl Endings (E1 - E24) -->
+            <g class="marker-group marker-teal">
+              <circle class="intersection-dot dot-sm" cx="13.52" cy="-128.60" r="3.2" />
+              <text class="dot-label dot-label-sm" x="17.42" y="-137.80">E1</text>
+              <circle class="intersection-dot dot-sm" cx="30.61" cy="-143.99" r="3.2" />
+              <text class="dot-label dot-label-sm" x="35.51" y="-152.69">E2</text>
+              <circle class="intersection-dot dot-sm" cx="50.52" cy="-155.49" r="3.2" />
+              <text class="dot-label dot-label-sm" x="56.32" y="-163.69">E3</text>
+              <circle class="intersection-dot dot-sm" cx="72.39" cy="-162.60" r="3.2" />
+              <text class="dot-label dot-label-sm" x="78.99" y="-170.10">E4</text>
+              <circle class="intersection-dot dot-sm" cx="118.13" cy="-52.59" r="3.2" />
+              <text class="dot-label dot-label-sm" x="128.03" y="-53.79">E5</text>
+              <circle class="intersection-dot dot-sm" cx="140.00" cy="-45.49" r="3.2" />
+              <text class="dot-label dot-label-sm" x="150.00" y="-45.59">E6</text>
+              <circle class="intersection-dot dot-sm" cx="159.92" cy="-33.99" r="3.2" />
+              <text class="dot-label dot-label-sm" x="169.92" y="-33.09">E7</text>
+              <circle class="intersection-dot dot-sm" cx="177.01" cy="-18.61" r="3.2" />
+              <text class="dot-label dot-label-sm" x="186.81" y="-16.71">E8</text>
+              <circle class="intersection-dot dot-sm" cx="104.61" cy="76.01" r="3.2" />
+              <text class="dot-label dot-label-sm" x="110.61" y="84.01">E9</text>
+              <circle class="intersection-dot dot-sm" cx="109.39" cy="98.50" r="3.2" />
+              <text class="dot-label dot-label-sm" x="114.49" y="107.10">E10</text>
+              <circle class="intersection-dot dot-sm" cx="109.40" cy="121.50" r="3.2" />
+              <text class="dot-label dot-label-sm" x="113.60" y="130.60">E11</text>
+              <circle class="intersection-dot dot-sm" cx="104.62" cy="143.99" r="3.2" />
+              <text class="dot-label dot-label-sm" x="107.82" y="153.49">E12</text>
+              <circle class="intersection-dot dot-sm" cx="-13.52" cy="128.60" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-17.42" y="137.80">E13</text>
+              <circle class="intersection-dot dot-sm" cx="-30.61" cy="143.99" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-35.51" y="152.69">E14</text>
+              <circle class="intersection-dot dot-sm" cx="-50.52" cy="155.49" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-56.32" y="163.69">E15</text>
+              <circle class="intersection-dot dot-sm" cx="-72.39" cy="162.60" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-78.99" y="170.10">E16</text>
+              <circle class="intersection-dot dot-sm" cx="-118.13" cy="52.59" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-128.03" y="53.79">E17</text>
+              <circle class="intersection-dot dot-sm" cx="-140.00" cy="45.49" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-150.00" y="45.59">E18</text>
+              <circle class="intersection-dot dot-sm" cx="-159.92" cy="33.99" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-169.92" y="33.09">E19</text>
+              <circle class="intersection-dot dot-sm" cx="-177.01" cy="18.61" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-186.81" y="16.71">E20</text>
+              <circle class="intersection-dot dot-sm" cx="-104.61" cy="-76.01" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-110.61" y="-84.01">E21</text>
+              <circle class="intersection-dot dot-sm" cx="-109.39" cy="-98.50" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-114.49" y="-107.10">E22</text>
+              <circle class="intersection-dot dot-sm" cx="-109.40" cy="-121.50" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-113.60" y="-130.60">E23</text>
+              <circle class="intersection-dot dot-sm" cx="-104.62" cy="-143.99" r="3.2" />
+              <text class="dot-label dot-label-sm" x="-107.82" y="-153.49">E24</text>
+            </g>
+
+            <!-- 7. Concentric Rings & Radial Divider Crossings / Division Endings (D1 - D60) -->
+            <g class="marker-group marker-cyan">
+              <circle class="intersection-dot dot-sm" cx="110.0" cy="-190.53" r="3" />
+              <text class="dot-label dot-label-xs" x="115.0" y="-199.23">D1_2</text>
+              <circle class="intersection-dot dot-sm" cx="220.0" cy="-0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="230.0" y="-0.0">D1_4</text>
+              <circle class="intersection-dot dot-sm" cx="110.0" cy="190.53" r="3" />
+              <text class="dot-label dot-label-xs" x="115.0" y="199.23">D1_6</text>
+              <circle class="intersection-dot dot-sm" cx="-110.0" cy="190.53" r="3" />
+              <text class="dot-label dot-label-xs" x="-115.0" y="199.23">D1_8</text>
+              <circle class="intersection-dot dot-sm" cx="-220.0" cy="0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-230.0" y="0.0">D1_10</text>
+              <circle class="intersection-dot dot-sm" cx="-110.0" cy="-190.53" r="3" />
+              <text class="dot-label dot-label-xs" x="-115.0" y="-199.23">D1_12</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="-240.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="-250.0">D2_1</text>
+              <circle class="intersection-dot dot-sm" cx="120.0" cy="-207.85" r="3" />
+              <text class="dot-label dot-label-xs" x="125.0" y="-216.54999999999998">D2_2</text>
+              <circle class="intersection-dot dot-sm" cx="207.85" cy="-120.0" r="3" />
+              <text class="dot-label dot-label-xs" x="216.54999999999998" y="-125.0">D2_3</text>
+              <circle class="intersection-dot dot-sm" cx="240.0" cy="-0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="250.0" y="-0.0">D2_4</text>
+              <circle class="intersection-dot dot-sm" cx="207.85" cy="120.0" r="3" />
+              <text class="dot-label dot-label-xs" x="216.54999999999998" y="125.0">D2_5</text>
+              <circle class="intersection-dot dot-sm" cx="120.0" cy="207.85" r="3" />
+              <text class="dot-label dot-label-xs" x="125.0" y="216.54999999999998">D2_6</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="240.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="250.0">D2_7</text>
+              <circle class="intersection-dot dot-sm" cx="-120.0" cy="207.85" r="3" />
+              <text class="dot-label dot-label-xs" x="-125.0" y="216.54999999999998">D2_8</text>
+              <circle class="intersection-dot dot-sm" cx="-207.85" cy="120.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-216.54999999999998" y="125.0">D2_9</text>
+              <circle class="intersection-dot dot-sm" cx="-240.0" cy="0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-250.0" y="0.0">D2_10</text>
+              <circle class="intersection-dot dot-sm" cx="-207.85" cy="-120.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-216.54999999999998" y="-125.0">D2_11</text>
+              <circle class="intersection-dot dot-sm" cx="-120.0" cy="-207.85" r="3" />
+              <text class="dot-label dot-label-xs" x="-125.0" y="-216.54999999999998">D2_12</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="-260.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="-270.0">D3_1</text>
+              <circle class="intersection-dot dot-sm" cx="130.0" cy="-225.17" r="3" />
+              <text class="dot-label dot-label-xs" x="135.0" y="-233.86999999999998">D3_2</text>
+              <circle class="intersection-dot dot-sm" cx="225.17" cy="-130.0" r="3" />
+              <text class="dot-label dot-label-xs" x="233.86999999999998" y="-135.0">D3_3</text>
+              <circle class="intersection-dot dot-sm" cx="260.0" cy="-0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="270.0" y="-0.0">D3_4</text>
+              <circle class="intersection-dot dot-sm" cx="225.17" cy="130.0" r="3" />
+              <text class="dot-label dot-label-xs" x="233.86999999999998" y="135.0">D3_5</text>
+              <circle class="intersection-dot dot-sm" cx="130.0" cy="225.17" r="3" />
+              <text class="dot-label dot-label-xs" x="135.0" y="233.86999999999998">D3_6</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="260.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="270.0">D3_7</text>
+              <circle class="intersection-dot dot-sm" cx="-130.0" cy="225.17" r="3" />
+              <text class="dot-label dot-label-xs" x="-135.0" y="233.86999999999998">D3_8</text>
+              <circle class="intersection-dot dot-sm" cx="-225.17" cy="130.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-233.86999999999998" y="135.0">D3_9</text>
+              <circle class="intersection-dot dot-sm" cx="-260.0" cy="0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-270.0" y="0.0">D3_10</text>
+              <circle class="intersection-dot dot-sm" cx="-225.17" cy="-130.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-233.86999999999998" y="-135.0">D3_11</text>
+              <circle class="intersection-dot dot-sm" cx="-130.0" cy="-225.17" r="3" />
+              <text class="dot-label dot-label-xs" x="-135.0" y="-233.86999999999998">D3_12</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="-280.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="-290.0">D4_1</text>
+              <circle class="intersection-dot dot-sm" cx="140.0" cy="-242.49" r="3" />
+              <text class="dot-label dot-label-xs" x="145.0" y="-251.19">D4_2</text>
+              <circle class="intersection-dot dot-sm" cx="242.49" cy="-140.0" r="3" />
+              <text class="dot-label dot-label-xs" x="251.19" y="-145.0">D4_3</text>
+              <circle class="intersection-dot dot-sm" cx="280.0" cy="-0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="290.0" y="-0.0">D4_4</text>
+              <circle class="intersection-dot dot-sm" cx="242.49" cy="140.0" r="3" />
+              <text class="dot-label dot-label-xs" x="251.19" y="145.0">D4_5</text>
+              <circle class="intersection-dot dot-sm" cx="140.0" cy="242.49" r="3" />
+              <text class="dot-label dot-label-xs" x="145.0" y="251.19">D4_6</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="280.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="290.0">D4_7</text>
+              <circle class="intersection-dot dot-sm" cx="-140.0" cy="242.49" r="3" />
+              <text class="dot-label dot-label-xs" x="-145.0" y="251.19">D4_8</text>
+              <circle class="intersection-dot dot-sm" cx="-242.49" cy="140.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-251.19" y="145.0">D4_9</text>
+              <circle class="intersection-dot dot-sm" cx="-280.0" cy="0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-290.0" y="0.0">D4_10</text>
+              <circle class="intersection-dot dot-sm" cx="-242.49" cy="-140.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-251.19" y="-145.0">D4_11</text>
+              <circle class="intersection-dot dot-sm" cx="-140.0" cy="-242.49" r="3" />
+              <text class="dot-label dot-label-xs" x="-145.0" y="-251.19">D4_12</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="-300.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="-310.0">D1</text>
+              <circle class="intersection-dot dot-sm" cx="150.0" cy="-259.81" r="3" />
+              <text class="dot-label dot-label-xs" x="155.0" y="-268.51">D2</text>
+              <circle class="intersection-dot dot-sm" cx="259.81" cy="-150.0" r="3" />
+              <text class="dot-label dot-label-xs" x="268.51" y="-155.0">D3</text>
+              <circle class="intersection-dot dot-sm" cx="300.0" cy="-0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="310.0" y="-0.0">D4</text>
+              <circle class="intersection-dot dot-sm" cx="259.81" cy="150.0" r="3" />
+              <text class="dot-label dot-label-xs" x="268.51" y="155.0">D5</text>
+              <circle class="intersection-dot dot-sm" cx="150.0" cy="259.81" r="3" />
+              <text class="dot-label dot-label-xs" x="155.0" y="268.51">D6</text>
+              <circle class="intersection-dot dot-sm" cx="0.0" cy="300.0" r="3" />
+              <text class="dot-label dot-label-xs" x="0.0" y="310.0">D7</text>
+              <circle class="intersection-dot dot-sm" cx="-150.0" cy="259.81" r="3" />
+              <text class="dot-label dot-label-xs" x="-155.0" y="268.51">D8</text>
+              <circle class="intersection-dot dot-sm" cx="-259.81" cy="150.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-268.51" y="155.0">D9</text>
+              <circle class="intersection-dot dot-sm" cx="-300.0" cy="0.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-310.0" y="0.0">D10</text>
+              <circle class="intersection-dot dot-sm" cx="-259.81" cy="-150.0" r="3" />
+              <text class="dot-label dot-label-xs" x="-268.51" y="-155.0">D11</text>
+              <circle class="intersection-dot dot-sm" cx="-150.0" cy="-259.81" r="3" />
+              <text class="dot-label dot-label-xs" x="-155.0" y="-268.51">D12</text>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- COLOR SELECTING STUDIO WINDOW (By Shape Number 1–148) -->
+  <div id="color-studio-panel" class="color-studio-panel active">
+    <div class="studio-header">
+      <div class="studio-title">
+        <span class="studio-icon">🎨</span>
+        <div class="title-wrap">
+          <h3>Shape Color Studio</h3>
+          <span class="subtitle">Select shape by number (1–148) to customize</span>
+        </div>
+      </div>
+      <div class="studio-header-btns">
+        <button id="btn-minimize-studio" class="studio-tool-btn" title="Minimize">_</button>
+        <button id="btn-close-studio" class="studio-tool-btn" title="Close">✕</button>
+      </div>
+    </div>
+
+    <div class="studio-body">
+      <!-- 1. Shape Number Quick Navigation -->
+      <div class="studio-section shape-nav-section">
+        <label class="section-label">Select Shape by Number:</label>
+        <div class="shape-nav-controls">
+          <button id="btn-prev-shape" class="nav-btn" title="Previous Shape (←)">◀</button>
+          <div class="num-input-wrap">
+            <span class="num-prefix">Shape #</span>
+            <input type="number" id="cs-num-input" min="1" max="148" value="1" />
+            <span class="num-suffix">/ 148</span>
+          </div>
+          <button id="btn-next-shape" class="nav-btn" title="Next Shape (→)">▶</button>
+        </div>
+        <div class="select-dropdown-wrap">
+          <select id="cs-shape-select" class="custom-select">
+            <!-- Generated dynamically by JS with all 148 categorized shapes -->
+          </select>
+        </div>
+      </div>
+
+      <!-- 2. Active Shape Info & Live Color Display -->
+      <div class="studio-section active-shape-card">
+        <div class="card-left">
+          <div class="shape-meta">
+            <span id="cs-active-badge" class="shape-id-badge">Shape #1</span>
+            <span id="cs-active-name" class="shape-name-text">Concentric Ring 1, Sector 1</span>
+          </div>
+          <div class="hex-display-group">
+            <input type="color" id="cs-color-picker" class="native-color-picker" value="#E65100" />
+            <input type="text" id="cs-hex-input" class="hex-text-input" value="#E65100" maxlength="7" spellcheck="false" />
+            <button id="btn-copy-hex" class="btn-copy" title="Copy HEX code">📋</button>
+          </div>
+        </div>
+        <div class="card-right">
+          <div id="cs-color-swatch-large" class="large-swatch" style="background-color: #E65100;"></div>
+        </div>
+      </div>
+
+      <!-- 3. HSL Fine-Tuning Sliders -->
+      <div class="studio-section hsl-sliders-section">
+        <div class="slider-row">
+          <span class="slider-name">Hue</span>
+          <input type="range" id="cs-slider-hue" min="0" max="360" value="25" class="hsl-slider hue-slider" />
+          <span id="cs-val-hue" class="val-badge">25°</span>
+        </div>
+        <div class="slider-row">
+          <span class="slider-name">Sat</span>
+          <input type="range" id="cs-slider-sat" min="0" max="100" value="85" class="hsl-slider" />
+          <span id="cs-val-sat" class="val-badge">85%</span>
+        </div>
+        <div class="slider-row">
+          <span class="slider-name">Light</span>
+          <input type="range" id="cs-slider-light" min="0" max="100" value="50" class="hsl-slider" />
+          <span id="cs-val-light" class="val-badge">50%</span>
+        </div>
+      </div>
+
+      <!-- 4. Authentic Pookkalam Flower Presets (16 Swatches) -->
+      <div class="studio-section presets-section">
+        <label class="section-label">✿ Pookkalam Floral Palette Presets:</label>
+        <div class="floral-palette-grid">
+          <button class="flower-btn" data-color="#FFC107" style="--swatch:#FFC107;" title="Marigold Yellow (Jamanthi)"><span>Marigold</span></button>
+          <button class="flower-btn" data-color="#FF6F00" style="--swatch:#FF6F00;" title="Saffron Orange (Chendumalli)"><span>Saffron</span></button>
+          <button class="flower-btn" data-color="#D50000" style="--swatch:#D50000;" title="Chethi Crimson (Thechi)"><span>Chethi</span></button>
+          <button class="flower-btn" data-color="#E91E63" style="--swatch:#E91E63;" title="Lotus Pink (Thamara)"><span>Lotus</span></button>
+          <button class="flower-btn" data-color="#FFF9C4" style="--swatch:#FFF9C4; color:#333;" title="Mulla Jasmine (Mulla)"><span>Jasmine</span></button>
+          <button class="flower-btn" data-color="#2E7D32" style="--swatch:#2E7D32;" title="Thumba Leaf (Thumba)"><span>Leaf</span></button>
+          <button class="flower-btn" data-color="#7B1FA2" style="--swatch:#7B1FA2;" title="Krishna Kireedam Purple"><span>Violet</span></button>
+          <button class="flower-btn" data-color="#1565C0" style="--swatch:#1565C0;" title="Shankhupushpam Royal Blue"><span>Royal Blue</span></button>
+          <button class="flower-btn" data-color="#00838F" style="--swatch:#00838F;" title="Peacock Teal"><span>Teal</span></button>
+          <button class="flower-btn" data-color="#FFEB3B" style="--swatch:#FFEB3B; color:#333;" title="Sunflower Bright Gold"><span>Gold</span></button>
+          <button class="flower-btn" data-color="#8D6E63" style="--swatch:#8D6E63;" title="Sandalwood Amber (Chandanam)"><span>Amber</span></button>
+          <button class="flower-btn" data-color="#4A148C" style="--swatch:#4A148C;" title="Wild Berry Deep Plum"><span>Plum</span></button>
+          <button class="flower-btn" data-color="#C2185B" style="--swatch:#C2185B;" title="Rose Velvet"><span>Rose</span></button>
+          <button class="flower-btn" data-color="#FF5722" style="--swatch:#FF5722;" title="Flame Orange (Kanikonna)"><span>Flame</span></button>
+          <button class="flower-btn" data-color="#00E676" style="--swatch:#00E676; color:#111;" title="Fresh Mint Lime"><span>Lime</span></button>
+          <button class="flower-btn" data-color="#304FFE" style="--swatch:#304FFE;" title="Lapis Lazuli Indigo"><span>Indigo</span></button>
+        </div>
+      </div>
+
+      <!-- 5. Symmetry Auto-Sync Option -->
+      <div class="studio-section symmetry-section">
+        <div class="sym-toggle-wrap">
+          <input type="checkbox" id="toggle-symmetry" class="toggle-checkbox" checked />
+          <label class="toggle-switch" for="toggle-symmetry">
+            <span class="toggle-slider"></span>
+            <span class="toggle-text"><strong>Auto-Sync Symmetry</strong> (Apply to all 6 Petals / 12 Sectors)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 6. Whole-Pookkalam Harmony Themes & Randomizer -->
+      <div class="studio-section themes-section">
+        <label class="section-label">Complete Pookkalam Themes:</label>
+        <div class="theme-btns-grid">
+          <button class="theme-btn" data-theme="onam">🌺 Onam Harvest</button>
+          <button class="theme-btn" data-theme="royal">👑 Royal Maharaja</button>
+          <button class="theme-btn" data-theme="sunset">🌅 Sunset Horizon</button>
+          <button class="theme-btn" data-theme="peacock">🦚 Temple Peacock</button>
+          <button class="theme-btn" data-theme="rainbow">🌈 148 Unique Spectral</button>
+          <button class="theme-btn" data-theme="random">🎲 Randomize 148 Colors</button>
+        </div>
+      </div>
+
+      <!-- 7. Global Actions & Export -->
+      <div class="studio-section actions-section">
+        <button id="btn-reset-default" class="action-btn action-secondary">🔄 Reset Default</button>
+        <button id="btn-clear-canvas" class="action-btn action-secondary">🗑️ Clear (Line Art)</button>
+        <button id="btn-download-svg" class="action-btn action-primary">💾 Download SVG</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Cursor Floating Tooltip for Shapes -->
+  <div id="shape-cursor-tooltip" class="shape-cursor-tooltip">
+    <span id="tooltip-swatch" class="tooltip-swatch"></span>
+    <div class="tooltip-info">
+      <strong id="tooltip-id">Shape #1</strong>
+      <span id="tooltip-cat">Category Name</span>
+    </div>
+  </div>
+
+  <!-- Legend for Labeled Intersections -->
+  <div class="legend-bar">
+    <span class="leg-item"><span class="dot-swatch swatch-green"></span><strong>O</strong>: Origin</span>
+    <span class="leg-item"><span class="dot-swatch swatch-blue"></span><strong>C1–C6</strong>: Cusps</span>
+    <span class="leg-item"><span class="dot-swatch swatch-red"></span><strong>R1–R6</strong>: Petal Crossings</span>
+    <span class="leg-item"><span class="dot-swatch swatch-orange"></span><strong>T1–T6</strong>: Apex Tips</span>
+    <span class="leg-item"><span class="dot-swatch swatch-purple"></span><strong>S1–S24</strong>: Inner Swirl Ends</span>
+    <span class="leg-item"><span class="dot-swatch swatch-teal"></span><strong>E1–E24</strong>: Outer Swirl Ends</span>
+    <span class="leg-item"><span class="dot-swatch swatch-cyan"></span><strong>D1–D60</strong>: Ring / Spoke Crossings</span>
+  </div>
+
+
+</main>
+
+<script>
+  // ── 1. Default Authentic Pookkalam Color Theme (Full Color / No White Gaps) ──
+  const default148Palette = {"1": "#006400", "3": "#006400", "5": "#006400", "7": "#006400", "9": "#006400", "11": "#006400", "2": "#FFD700", "4": "#FFD700", "6": "#FFD700", "8": "#FFD700", "10": "#FFD700", "12": "#FFD700", "13": "#E30022", "15": "#E30022", "17": "#E30022", "19": "#E30022", "21": "#E30022", "23": "#E30022", "14": "#FFA500", "16": "#FFA500", "18": "#FFA500", "20": "#FFA500", "22": "#FFA500", "24": "#FFA500", "25": "#FF6600", "27": "#FF6600", "29": "#FF6600", "31": "#FF6600", "33": "#FF6600", "35": "#FF6600", "26": "#283593", "28": "#283593", "30": "#283593", "32": "#283593", "34": "#283593", "36": "#283593", "37": "#FFD700", "39": "#FFD700", "41": "#FFD700", "43": "#FFD700", "45": "#FFD700", "47": "#FFD700", "38": "#006400", "40": "#006400", "42": "#006400", "44": "#006400", "46": "#006400", "48": "#006400", "49": "#E30022", "50": "#FFD700", "51": "#E30022", "52": "#FFD700", "53": "#E30022", "54": "#FFD700", "55": "#E30022", "56": "#FFD700", "57": "#E30022", "58": "#FFD700", "59": "#E30022", "60": "#FFD700", "61": "#E30022", "62": "#FFD700", "63": "#E30022", "64": "#FFD700", "65": "#E30022", "66": "#FFD700", "67": "#E30022", "68": "#FFD700", "69": "#E30022", "70": "#FFD700", "71": "#E30022", "72": "#FFD700", "73": "#E30022", "74": "#FFD700", "75": "#E30022", "76": "#FFD700", "77": "#E30022", "78": "#FFD700", "79": "#FFD700", "80": "#283593", "81": "#FF6600", "82": "#006400", "83": "#E30022", "85": "#E30022", "87": "#FFD700", "138": "#E30022", "140": "#E30022", "142": "#FFD700", "84": "#FFD700", "86": "#FFD700", "139": "#FFD700", "141": "#FFD700", "88": "#283593", "90": "#283593", "92": "#283593", "94": "#283593", "96": "#283593", "89": "#FFD700", "91": "#FFD700", "93": "#FFD700", "95": "#FFD700", "97": "#283593", "98": "#006400", "100": "#006400", "102": "#006400", "104": "#006400", "106": "#006400", "99": "#FF6600", "101": "#FF6600", "103": "#FF6600", "105": "#FF6600", "107": "#006400", "108": "#E30022", "110": "#E30022", "112": "#E30022", "114": "#E30022", "116": "#E30022", "109": "#FFD700", "111": "#FFD700", "113": "#FFD700", "115": "#FFD700", "117": "#E30022", "118": "#283593", "120": "#283593", "122": "#283593", "124": "#283593", "126": "#283593", "119": "#FFD700", "121": "#FFD700", "123": "#FFD700", "125": "#FFD700", "127": "#283593", "128": "#006400", "130": "#006400", "132": "#006400", "134": "#006400", "136": "#006400", "129": "#FF6600", "131": "#FF6600", "133": "#FF6600", "135": "#FF6600", "137": "#006400", "143": "#FFD700", "146": "#FFD700", "144": "#006400", "147": "#006400", "145": "#FF6600", "148": "#FF6600"};
+
+  // 148 Unique Spectral Rainbow Palette
+  const spectralRainbowPalette = {"1": "#D68C1E", "2": "#EBC828", "3": "#ECF53C", "4": "#C5E967", "5": "#7ADF14", "6": "#59F41E", "7": "#54E54C", "8": "#60F079", "9": "#0BE964", "10": "#31E19F", "11": "#44EDD4", "12": "#59EBF7", "13": "#D61E8C", "14": "#EB2871", "15": "#F53C58", "16": "#E97167", "17": "#DF5114", "18": "#F48F1E", "19": "#E5BF4C", "20": "#F0EC60", "21": "#BDE90B", "22": "#96E131", "23": "#7FED44", "24": "#6DF759", "25": "#1ED668", "26": "#28EBA2", "27": "#3CF5D9", "28": "#67DFE9", "29": "#14A3DF", "30": "#1E84F4", "31": "#4C72E5", "32": "#6063F0", "33": "#370BE9", "34": "#7C31E1", "35": "#B244ED", "36": "#E359F7", "37": "#D6551E", "38": "#EB8E28", "39": "#F5C73C", "40": "#E9E667", "41": "#B7DF14", "42": "#99F41E", "43": "#82E54C", "44": "#72F060", "45": "#0BE921", "46": "#31E16A", "47": "#44EDA1", "48": "#59F7D3", "49": "#E88020", "50": "#ECB745", "51": "#E8D020", "52": "#DFEC45", "53": "#B0E820", "54": "#9CEC45", "55": "#60E820", "56": "#59EC45", "57": "#20E830", "58": "#45EC74", "59": "#20E880", "60": "#45ECB7", "61": "#20E8D0", "62": "#45DFEC", "63": "#20B0E8", "64": "#459CEC", "65": "#2060E8", "66": "#4559EC", "67": "#3020E8", "68": "#7445EC", "69": "#8020E8", "70": "#B745EC", "71": "#D020E8", "72": "#EC45DF", "73": "#E820B0", "74": "#EC459C", "75": "#E82060", "76": "#EC4559", "77": "#E83020", "78": "#EC7445", "79": "#FFD700", "80": "#C62828", "81": "#FFA000", "82": "#2E7D32", "83": "#BE2B17", "84": "#D95311", "85": "#F4880A", "86": "#E5B72E", "87": "#EEE738", "88": "#D8F744", "89": "#B8EB64", "90": "#A6F371", "91": "#98F97F", "92": "#9BF29C", "93": "#BE9917", "94": "#D9D711", "95": "#C5F40A", "96": "#9AE52E", "97": "#7EEE38", "98": "#63F744", "99": "#64EB6A", "100": "#71F391", "101": "#7FF9B7", "102": "#9BF2D5", "103": "#17BE28", "104": "#11D94F", "105": "#0AF484", "106": "#2EE5B3", "107": "#38EEE4", "108": "#44DCF7", "109": "#64BBEB", "110": "#71A9F3", "111": "#7F9AF9", "112": "#9B9CF2", "113": "#17AABE", "114": "#1197D9", "115": "#0A76F4", "116": "#2E5BE5", "117": "#3840EE", "118": "#6344F7", "119": "#9864EB", "120": "#BE71F3", "121": "#E17FF9", "122": "#F29BF1", "123": "#2417BE", "124": "#4B11D9", "125": "#7F0AF4", "126": "#B02EE5", "127": "#E038EE", "128": "#F744E0", "129": "#EB64BD", "130": "#F371AB", "131": "#F97F9C", "132": "#F29B9D", "133": "#BE17A3", "134": "#D9118F", "135": "#F40A6C", "136": "#E52E54", "137": "#EE3838", "138": "#F76A44", "139": "#EB9D64", "140": "#F3C371", "141": "#F9E67F", "142": "#EEF29B", "143": "#880E4F", "144": "#E65100", "145": "#F57F17", "146": "#1B5E20", "147": "#0D47A1", "148": "#4A148C"};
+
+
+  // Active runtime palette state
+  let currentPalette = Object.assign({}, default148Palette);
+  let activeShapeId = 1;
+  let isColorMode = true;
+  let isSymmetrySync = true;
+
+  // DOM Elements
+  const strokeSlider = document.getElementById('stroke-slider');
+  const strokeVal = document.getElementById('stroke-val');
+  const toggleColorMode = document.getElementById('toggle-color-mode');
+  const toggleShapeNumbers = document.getElementById('toggle-shape-numbers');
+  const toggleSwirlC4 = document.getElementById('toggle-swirl-c4');
+  const toggleLandmarks = document.getElementById('toggle-landmarks');
+  const toggleSymmetry = document.getElementById('toggle-symmetry');
+  const btnOpenStudio = document.getElementById('btn-open-color-studio');
+  const studioPanel = document.getElementById('color-studio-panel');
+  const btnCloseStudio = document.getElementById('btn-close-studio');
+  const btnMinimizeStudio = document.getElementById('btn-minimize-studio');
+  const activePill = document.getElementById('active-shape-pill');
+
+  const csNumInput = document.getElementById('cs-num-input');
+  const csShapeSelect = document.getElementById('cs-shape-select');
+  const btnPrevShape = document.getElementById('btn-prev-shape');
+  const btnNextShape = document.getElementById('btn-next-shape');
+  const csActiveBadge = document.getElementById('cs-active-badge');
+  const csActiveName = document.getElementById('cs-active-name');
+  const csColorPicker = document.getElementById('cs-color-picker');
+  const csHexInput = document.getElementById('cs-hex-input');
+  const csColorSwatchLarge = document.getElementById('cs-color-swatch-large');
+  const btnCopyHex = document.getElementById('btn-copy-hex');
+
+  const sliderHue = document.getElementById('cs-slider-hue');
+  const sliderSat = document.getElementById('cs-slider-sat');
+  const sliderLight = document.getElementById('cs-slider-light');
+  const valHue = document.getElementById('cs-val-hue');
+  const valSat = document.getElementById('cs-val-sat');
+  const valLight = document.getElementById('cs-val-light');
+
+  const tooltip = document.getElementById('shape-cursor-tooltip');
+  const tooltipSwatch = document.getElementById('tooltip-swatch');
+  const tooltipId = document.getElementById('tooltip-id');
+  const tooltipCat = document.getElementById('tooltip-cat');
+
+  const allCells = document.querySelectorAll('.pookkalam-cell');
+
+  // Build searchable dropdown options
+  function buildShapeDropdown() {
+    csShapeSelect.innerHTML = '';
+    const groups = [
+      { label: 'Concentric Ring Cells (1–48)', min: 1, max: 48 },
+      { label: 'Central Mandala Blades (49–78)', min: 49, max: 78 },
+      { label: 'Center Collar & Hub (79–82)', min: 79, max: 82 },
+      { label: 'Petal Swirls & Ribbons (83–142)', min: 83, max: 142 },
+      { label: 'Inter-Petal Outer Cusps (143–148)', min: 143, max: 148 }
+    ];
+
+    groups.forEach(g => {
+      const optGroup = document.createElement('optgroup');
+      optGroup.label = g.label;
+      for (let i = g.min; i <= g.max; i++) {
+        const cell = document.getElementById('shape-' + i);
+        const cat = cell ? cell.getAttribute('data-category') : 'Shape #' + i;
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = '#' + i + ' — ' + cat;
+        optGroup.appendChild(opt);
+      }
+      csShapeSelect.appendChild(optGroup);
+    });
+  }
+
+  // Helper: Convert HEX to HSL
+  function hexToHsl(hex) {
+    let r = 0, g = 0, b = 0;
+    hex = hex.replace('#', '');
+    if (hex.length === 3) {
+      r = parseInt(hex[0] + hex[0], 16) / 255;
+      g = parseInt(hex[1] + hex[1], 16) / 255;
+      b = parseInt(hex[2] + hex[2], 16) / 255;
+    } else if (hex.length === 6) {
+      r = parseInt(hex.substring(0, 2), 16) / 255;
+      g = parseInt(hex.substring(2, 4), 16) / 255;
+      b = parseInt(hex.substring(4, 6), 16) / 255;
+    }
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h = 0, s = 0, l = (max + min) / 2;
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+  }
+
+  // Helper: Convert HSL to HEX
+  function hslToHex(h, s, l) {
+    h /= 360; s /= 100; l /= 100;
+    let r, g, b;
+    if (s === 0) {
+      r = g = b = l;
+    } else {
+      const hue2rgb = (p, q, t) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+    const toHex = x => {
+      const hex = Math.round(x * 255).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    };
+    return ('#' + toHex(r) + toHex(g) + toHex(b)).toUpperCase();
+  }
+
+  // Apply colors to SVG elements with seamless anti-aliasing edge expansion
+  function renderColors() {
+    allCells.forEach(cell => {
+      const id = parseInt(cell.getAttribute('data-cell-id'));
+      if (isColorMode && currentPalette[id]) {
+        cell.style.fill = currentPalette[id];
+        cell.style.stroke = currentPalette[id];
+        cell.style.strokeWidth = '0.8px';
+        cell.style.strokeLinejoin = 'round';
+        cell.style.strokeLinecap = 'round';
+      } else {
+        cell.style.fill = '';
+        cell.style.stroke = '';
+        cell.style.strokeWidth = '';
+      }
+    });
+  }
+
+  // Identify symmetric companion shapes for a given shape ID
+  function getSymmetricShapeIds(id) {
+    const ids = [id];
+    if (!isSymmetrySync) return ids;
+
+    // Concentric Rings (1–48: 4 rings × 12 sectors)
+    if (id >= 1 && id <= 48) {
+      const ringIdx = Math.floor((id - 1) / 12);
+      for (let s = 0; s < 12; s++) {
+        ids.push(ringIdx * 12 + s + 1);
+      }
+    }
+    // Central Mandala Blades (49–78: 30 blades)
+    else if (id >= 49 && id <= 78) {
+      const bladeIdx = id - 49;
+      for (let k = 0; k < 6; k++) {
+        ids.push(49 + ((bladeIdx + k * 5) % 30));
+      }
+    }
+    // Petals (83–142: 6 petals × 10 shapes)
+    else if (id >= 83 && id <= 142) {
+      const shapeTypeIdx = (id - 83) % 10;
+      for (let p = 0; p < 6; p++) {
+        ids.push(83 + p * 10 + shapeTypeIdx);
+      }
+    }
+    // Outer Cusps (143–148: 6 cusps)
+    else if (id >= 143 && id <= 148) {
+      for (let c = 143; c <= 148; c++) {
+        ids.push(c);
+      }
+    }
+    return Array.from(new Set(ids));
+  }
+
+  // Update Studio UI for Active Shape
+  function selectShape(id, shouldOpenStudio) {
+    if (id < 1) id = 148;
+    if (id > 148) id = 1;
+    activeShapeId = id;
+
+    // Highlight on canvas
+    document.querySelectorAll('.pookkalam-cell.cell-active-selected').forEach(el => el.classList.remove('cell-active-selected'));
+    const activeEl = document.getElementById('shape-' + id);
+    if (activeEl) {
+      activeEl.classList.add('cell-active-selected');
+    }
+
+    // Highlight shape number
+    document.querySelectorAll('.shape-num-label.num-highlight').forEach(el => el.classList.remove('num-highlight'));
+    const numLabel = document.querySelector('.shape-num-label[data-shape-ref="shape-' + id + '"]');
+    if (numLabel) numLabel.classList.add('num-highlight');
+
+    // Update Studio Controls
+    csNumInput.value = id;
+    csShapeSelect.value = id;
+    activePill.textContent = '#' + id;
+    csActiveBadge.textContent = 'Shape #' + id;
+    const catName = activeEl ? activeEl.getAttribute('data-category') : 'Shape #' + id;
+    csActiveName.textContent = catName;
+
+    const col = currentPalette[id] || '#E65100';
+    csColorPicker.value = col;
+    csHexInput.value = col;
+    csColorSwatchLarge.style.backgroundColor = col;
+
+    // Sync HSL sliders
+    const [h, s, l] = hexToHsl(col);
+    sliderHue.value = h; valHue.textContent = h + '°';
+    sliderSat.value = s; valSat.textContent = s + '%';
+    sliderLight.value = l; valLight.textContent = l + '%';
+
+    if (shouldOpenStudio && studioPanel.classList.contains('minimized')) {
+      studioPanel.classList.remove('minimized');
+    }
+    if (shouldOpenStudio && !studioPanel.classList.contains('active')) {
+      studioPanel.classList.add('active');
+    }
+  }
+
+  // Set color for active shape (and symmetric companions if enabled)
+  function applyColor(hex) {
+    hex = hex.toUpperCase();
+    if (!/^#[0-9A-F]{6}$/i.test(hex)) return;
+
+    const targets = isSymmetrySync ? getSymmetricShapeIds(activeShapeId) : [activeShapeId];
+    targets.forEach(tId => {
+      currentPalette[tId] = hex;
+      const el = document.getElementById('shape-' + tId);
+      if (el && isColorMode) {
+        el.style.fill = hex;
+        el.style.stroke = hex;
+        el.style.strokeWidth = '0.8px';
+        el.style.strokeLinejoin = 'round';
+        el.style.strokeLinecap = 'round';
+      }
+    });
+
+    // Update active previews
+    csColorPicker.value = hex;
+    csHexInput.value = hex;
+    csColorSwatchLarge.style.backgroundColor = hex;
+
+    const [h, s, l] = hexToHsl(hex);
+    sliderHue.value = h; valHue.textContent = h + '°';
+    sliderSat.value = s; valSat.textContent = s + '%';
+    sliderLight.value = l; valLight.textContent = l + '%';
+  }
+
+  // ── Event Listeners ──
+
+  // Stroke slider
+  strokeSlider.addEventListener('input', (e) => {
+    const val = parseFloat(e.target.value).toFixed(1);
+    strokeVal.textContent = val + 'px';
+    document.documentElement.style.setProperty('--line-width', val + 'px');
+  });
+
+  // Color Mode toggle
+  toggleColorMode.addEventListener('change', (e) => {
+    isColorMode = e.target.checked;
+    document.body.classList.toggle('line-art-mode', !isColorMode);
+    renderColors();
+  });
+
+  // Shape Numbers toggle
+  toggleShapeNumbers.addEventListener('change', (e) => {
+    document.body.classList.toggle('hide-shape-numbers', !e.target.checked);
+  });
+
+  // Swirl C-4 lines toggle (C1-S24, C5-S16, C2-S4, C3-S8, C4-S12, C6-S20)
+  if (toggleSwirlC4) {
+    toggleSwirlC4.addEventListener('change', (e) => {
+      document.body.classList.toggle('hide-swirl-c4', !e.target.checked);
+    });
+  }
+
+  // Landmarks toggle
+  toggleLandmarks.addEventListener('change', (e) => {
+    document.body.classList.toggle('hide-landmarks', !e.target.checked);
+  });
+
+  // Symmetry sync toggle
+  toggleSymmetry.addEventListener('change', (e) => {
+    isSymmetrySync = e.target.checked;
+  });
+
+  // Studio open/close
+  btnOpenStudio.addEventListener('click', () => {
+    studioPanel.classList.toggle('active');
+    studioPanel.classList.remove('minimized');
+  });
+  btnCloseStudio.addEventListener('click', () => {
+    studioPanel.classList.remove('active');
+  });
+  btnMinimizeStudio.addEventListener('click', () => {
+    studioPanel.classList.toggle('minimized');
+  });
+
+  // Shape Nav buttons
+  btnPrevShape.addEventListener('click', () => selectShape(activeShapeId - 1));
+  btnNextShape.addEventListener('click', () => selectShape(activeShapeId + 1));
+  csNumInput.addEventListener('input', (e) => selectShape(parseInt(e.target.value) || 1));
+  csShapeSelect.addEventListener('change', (e) => selectShape(parseInt(e.target.value) || 1));
+
+  // Native color picker & Hex input
+  csColorPicker.addEventListener('input', (e) => applyColor(e.target.value));
+  csHexInput.addEventListener('input', (e) => {
+    let val = e.target.value.trim();
+    if (!val.startsWith('#')) val = '#' + val;
+    if (val.length === 7) applyColor(val);
+  });
+
+  // Copy HEX button
+  btnCopyHex.addEventListener('click', () => {
+    navigator.clipboard.writeText(csHexInput.value);
+    btnCopyHex.textContent = '✓';
+    setTimeout(() => btnCopyHex.textContent = '📋', 1200);
+  });
+
+  // HSL sliders
+  function updateFromHsl() {
+    const h = parseInt(sliderHue.value);
+    const s = parseInt(sliderSat.value);
+    const l = parseInt(sliderLight.value);
+    valHue.textContent = h + '°';
+    valSat.textContent = s + '%';
+    valLight.textContent = l + '%';
+    const hex = hslToHex(h, s, l);
+    applyColor(hex);
+  }
+  sliderHue.addEventListener('input', updateFromHsl);
+  sliderSat.addEventListener('input', updateFromHsl);
+  sliderLight.addEventListener('input', updateFromHsl);
+
+  // Flower preset buttons
+  document.querySelectorAll('.flower-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const col = btn.getAttribute('data-color');
+      applyColor(col);
+    });
+  });
+
+  // Theme palettes
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const theme = btn.getAttribute('data-theme');
+      if (theme === 'onam') {
+        currentPalette = Object.assign({}, default148Palette);
+      } else if (theme === 'rainbow') {
+        currentPalette = Object.assign({}, spectralRainbowPalette);
+      } else if (theme === 'royal') {
+        const royalHues = [270, 310, 45, 215, 340];
+        for (let i = 1; i <= 148; i++) {
+          const h = royalHues[i % royalHues.length];
+          const s = 80, l = 35 + ((i % 5) * 8);
+          currentPalette[i] = hslToHex(h, s, l);
+        }
+      } else if (theme === 'sunset') {
+        for (let i = 1; i <= 148; i++) {
+          const h = (10 + (i * 45) % 65);
+          const s = 85, l = 45 + (i % 6) * 6;
+          currentPalette[i] = hslToHex(h, s, l);
+        }
+      } else if (theme === 'peacock') {
+        for (let i = 1; i <= 148; i++) {
+          const h = (150 + (i * 37) % 90);
+          const s = 80, l = 40 + (i % 5) * 8;
+          currentPalette[i] = hslToHex(h, s, l);
+        }
+      } else if (theme === 'random') {
+        const golden_ratio = 0.618033988749895;
+        let h = Math.random();
+        for (let i = 1; i <= 148; i++) {
+          h = (h + golden_ratio) % 1.0;
+          const s = 70 + (i % 4) * 8;
+          const l = 45 + (i % 5) * 7;
+          currentPalette[i] = hslToHex(Math.round(h * 360), s, l);
+        }
+      }
+      renderColors();
+      selectShape(activeShapeId);
+    });
+  });
+
+  // Action buttons
+  document.getElementById('btn-reset-default').addEventListener('click', () => {
+    currentPalette = Object.assign({}, default148Palette);
+    renderColors();
+    selectShape(activeShapeId);
+  });
+
+  document.getElementById('btn-clear-canvas').addEventListener('click', () => {
+    for (let i = 1; i <= 148; i++) {
+      currentPalette[i] = '#FAF6EE';
+    }
+    renderColors();
+    selectShape(activeShapeId);
+  });
+
+  document.getElementById('btn-download-svg').addEventListener('click', () => {
+    const svgEl = document.querySelector('.pookkalam-svg');
+    const svgClone = svgEl.cloneNode(true);
+    svgClone.querySelectorAll('.pookkalam-cell').forEach(c => {
+      const id = parseInt(c.getAttribute('data-cell-id'));
+      if (currentPalette[id]) c.style.fill = currentPalette[id];
+    });
+    const svgData = new XMLSerializer().serializeToString(svgClone);
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'pookkalam_vector_art_148_shapes.svg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  // Direct Click & Hover on Canvas Shapes
+  allCells.forEach(cell => {
+    const cellId = parseInt(cell.getAttribute('data-cell-id'));
+    const numLabel = document.querySelector('.shape-num-label[data-shape-ref="shape-' + cellId + '"]');
+
+    cell.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectShape(cellId, true);
+    });
+
+    cell.addEventListener('mouseenter', (e) => {
+      if (numLabel) numLabel.classList.add('num-highlight');
+      const cat = cell.getAttribute('data-category');
+      tooltipId.textContent = 'Shape #' + cellId;
+      tooltipCat.textContent = cat;
+      tooltipSwatch.style.backgroundColor = currentPalette[cellId] || '#E65100';
+      tooltip.classList.add('visible');
+    });
+
+    cell.addEventListener('mousemove', (e) => {
+      tooltip.style.left = (e.clientX + 14) + 'px';
+      tooltip.style.top = (e.clientY + 14) + 'px';
+    });
+
+    cell.addEventListener('mouseleave', () => {
+      if (numLabel) numLabel.classList.remove('num-highlight');
+      tooltip.classList.remove('visible');
+    });
+  });
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
+    if (e.key === 'ArrowLeft') selectShape(activeShapeId - 1);
+    if (e.key === 'ArrowRight') selectShape(activeShapeId + 1);
+    if (e.key.toLowerCase() === 'c') {
+      studioPanel.classList.toggle('active');
+      studioPanel.classList.remove('minimized');
+    }
+  });
+
+  // Initialize
+  buildShapeDropdown();
+  renderColors();
+  selectShape(1);
+</script>
+
+</body>
+</html>
